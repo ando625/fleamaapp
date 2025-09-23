@@ -17,7 +17,8 @@ use App\Http\Controllers\ItemController;
 
 Route::get('/', [ItemController::class, 'index']);
 
-// ログイン必須ルート
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/mypage', [UserController::class, 'mypage'])->name('mypage');
     //Route::get('/items/create', [ItemController::class, 'create'])->name('items.create');
@@ -26,3 +27,5 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
+
+

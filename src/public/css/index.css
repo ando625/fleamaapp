@@ -1,79 +1,94 @@
 /* コンテンツラッパー */
 .content-wrapper {
-    background-color: white;
-    border-radius: 8px;
-    padding: 0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: white;  /* 背景を白にする */
+    border-radius: 4px;        /* 角を少し丸くする */
+    padding: 0;                /* 内側の余白はなし */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  /* ほんのり影をつける */
 }
 
 /* タブナビゲーション */
 .tab-navigation {
-    display: flex;
-    border-bottom: 1px solid #e0e0e0;
+    display: flex;     /* 子要素を横並びにする */
+    border-bottom: 2px solid #5F5F5F;  /* 下にグレーのラインを引く */
 }
 
 .tab-link {
-    padding: 16px 32px;
-    text-decoration: none;
-    color: #666;
-    font-size: 16px;
-    border-bottom: 3px solid transparent;
-    transition: all 0.3s ease;
+    padding: 16px 25px;      /* 内側余白（上下16px、左右25px） */
+    text-decoration: none;   /* リンクの下線を消す */
+    color: #5F5F5F;        /* 文字色をグレーに */
+    font-size: 18px;         /* 文字サイズを少し大きめに */
+    margin-left: 40px;      /* 左に余白を取る（タブ間隔用） */
 }
 
 .tab-link:hover {
-    color: #333;
-    background-color: #f9f9f9;
+    color: #333;            /* ホバー時の文字色を少し濃く */
+    background-color: #f9f9f9;    /* ホバー時に背景を薄グレーに */
 }
 
 .tab-link.active {
-    color: #000000;
-    
-    
+    color: red;         /* アクティブなタブだけ赤文字にする */
 }
 
 /* 商品グリッド */
 .products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-    padding: 40px;
+    display: grid;        /* グリッドレイアウトにする */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));   /* カラム数は自動調整。最小250px、最大は残り幅いっぱい */
+    gap: 30px;          /* アイテム間の隙間を30pxにする */
+    padding: 40px;      /* グリッド全体の余白 */
 }
 
 .product-item {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+    display: flex;             /* 縦に並ぶレイアウト */
+    flex-direction: column;    /* 子要素を縦方向に配置 */
+    gap: 12px;                 /* 要素間に12pxの隙間 */
 }
 
 .product-image {
-    aspect-ratio: 1;
-    background-color: #ccc;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #666;
-    font-size: 16px;
-    font-weight: 500;
+    width: 290px;                  /* 横幅を290pxに固定 */
+    height: 290px;                 /* 高さも290pxに固定 */
+    background-color: #ccc;      /* 背景は薄いグレー */
+    border-radius: 4px;            /* 角を丸くする */
+    display: flex;                 /* 中身を中央寄せするためにflexに */
+    align-items: center;           /* 縦方向に中央揃え */
+    justify-content: center;       /* 横方向に中央揃え */
+    color: #000000;              /* 文字色（もし中に文字がある場合） */
+    font-size: 16px;               /* フォントサイズ */
+    font-weight: 500;              /* 少し太字 */
+    overflow: hidden;              /* 枠をはみ出した部分を隠す */
+    /* → 画像が枠から飛び出さないようにする */
+}
+
+/* 画像を商品画像エリア全体に表示 */
+.product-image img {
+    width: 100%;               /* 横幅いっぱい */
+    height: 100%;              /* 高さもいっぱい */
+    object-fit: cover;         /* 画像をトリミングして枠に収める */
+    border-radius: 4px;        /* 画像自体も角丸にする */
 }
 
 .product-name {
-    font-size: 14px;
-    color: #333;
-    font-weight: 500;
+    font-size: 14px;           /* 文字サイズを少し小さめに */
+    color: #333;             /* 濃いグレーの文字色 */
+    font-weight: 500;          /* 少し太字 */
 }
 
 /* コンテンツのレスポンシブ */
 @media (max-width: 768px) {
+
+    /* 画面幅が768px以下のとき適用 */
     .products-grid {
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        /* 最小幅を200pxにして狭い画面でも詰め込めるように */
         gap: 20px;
+        /* アイテム間隔を少し狭くする */
         padding: 20px;
+        /* 余白も少なくして窮屈さを減らす */
     }
 
     .tab-link {
         padding: 12px 20px;
+        /* タブのサイズも小さめに */
         font-size: 14px;
+        /* 文字サイズを縮小 */
     }
 }

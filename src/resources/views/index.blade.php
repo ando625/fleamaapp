@@ -12,26 +12,14 @@
     </nav>
 
     <div class="products-grid">
+        @foreach($items as $item)
         <div class="product-item">
             <div class="product-image">
-                <span class="placeholder-text">商品画像</span>
+                <img src="{{ asset($item->item_path) }}" alt="{{ $item->name }}">
             </div>
-            <div class="product-name">商品名</div>
+            <div class="product-name">{{ $item->name }}</div>
         </div>
-        
-        <div class="product-item">
-            <div class="product-image">
-                <span class="placeholder-text">商品画像</span>
-            </div>
-            <div class="product-name">商品名</div>
-        </div>
-        
-        <div class="product-item">
-            <div class="product-image">
-                <span class="placeholder-text">商品画像</span>
-            </div>
-            <div class="product-name">商品名</div>
-        </div>
+        @endforeach
     </div>
 </div>
 @endsection
