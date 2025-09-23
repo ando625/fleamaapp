@@ -13,3 +13,13 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
+
+# --- storage 内の item フォルダは Git に追加したい ---
+# まず storage 以下を無視
+/storage/*
+
+# ただし item フォルダ以下は除外（Git に追加）
+!/storage/app/public/item
+!/storage/app/public/item/**
+
+# 上記の設定により、storage/app/public/item フォルダと中の画像だけ Git に含める

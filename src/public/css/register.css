@@ -1,0 +1,198 @@
+/* リセット CSS */
+* {
+    /* ページ内のすべての要素に対して命令*/
+    margin: 0;    /* 余白（外側）をゼロ */
+    padding: 0;   /* 余白（内側）もゼロ */
+    box-sizing: border-box;   /* 幅や高さの計算に、paddingやborderも含めて数えて*/
+}
+
+body {
+    /* ページ全体の本体に命令する */
+    font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic UI', 'Meiryo UI', sans-serif;  /* 文字の種類はこの順で探して*/
+    background-color: white;
+    color: #333;
+    min-height: 100vh;  /* 画面の高さ分は最低限確保 */
+}
+
+/* ヘッダー */
+.header {
+    background-color: #000;
+    padding: 12px 0;
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.logo-link {
+    display: inline-block;  /* ロゴをインラインブロックにして並べやすく */
+    padding: 15px 0;  /* 上下に15pxの余白 */
+}
+
+.logo {
+    height: 40px;
+    width: auto;  /* 横幅は自動でバランスを保つ */
+}
+
+/* メイン */
+.main {
+    padding: 60px 20px; /* 内側余白を上下60px、左右20px*/
+    min-height: calc(100vh - 70px); /* 画面の高さからヘッダー分を引いた分だけ高さを確保 */
+    display: flex;          /* フレックスボックスで並べる */
+    align-items: center;    /* 縦方向の中央 */
+    justify-content: center;  /* 横方向の中央 */
+}
+
+/* 登録コンテナ */
+.register-container {
+    padding: 10px 40px;
+    width: 100%;
+    max-width: 680px;
+    /* ただし最大680pxまでに制限 */
+}
+
+.register-title {
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 40px;
+    color: #000000;
+}
+
+/* フォーム */
+.register-form {
+    width: 100%;   /* フォームは横幅いっぱいに */
+}
+
+.form-group {
+    margin-bottom: 30px;
+}
+
+.form-label {
+    display: block;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #000000;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #5F5F5F;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: #fff;
+}
+
+
+/* エラーメッセージ */
+.error-message {
+    display: block;
+    /* ブロック要素として表示してね */
+    color: #e74c3c;
+    /* 赤色にしてエラーっぽくしてね */
+    font-size: 14px;
+    /* 文字サイズを14pxにしてね */
+    margin-top: 5px;
+    /* 上に5px余白を入れてね */
+}
+
+/* 登録ボタン */
+.register-button {
+    width: 100%;
+    padding: 15px;
+    background-color: #FF5555;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 4px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 30px;
+    margin-top: 50px;
+}
+
+
+/* ログインリンク */
+.login-link-container {
+    text-align: center;
+}
+
+.login-link {
+    color: #0073CC;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+/* PC向け (1400px〜1540px) */
+@media screen and (min-width: 1400px) and (max-width: 1540px) {
+
+    .register-container,
+    .login-container {
+        max-width: 800px;
+        /* 最大幅を少し広げる */
+        padding: 20px 60px;
+        /* 内側余白を広げる */
+    }
+
+    .register-title,
+    .login-title {
+        font-size: 40px;
+        /* タイトルを少し大きく */
+    }
+
+    .form-label {
+        font-size: 22px;
+        /* ラベルを少し大きく */
+    }
+
+    .form-input {
+        font-size: 18px;
+        /* 入力欄の文字も大きめ */
+        padding: 14px 18px;
+    }
+
+    .register-button,
+    .login-button {
+        font-size: 20px;
+        padding: 18px;
+    }
+}
+
+/* タブレット向け (768px〜850px) */
+@media screen and (min-width: 768px) and (max-width: 850px) {
+
+    .register-container,
+    .login-container {
+        max-width: 90%;
+        /* 画面幅に合わせる */
+        padding: 15px 30px;
+        /* 内側余白を縮小 */
+    }
+
+    .register-title,
+    .login-title {
+        font-size: 32px;
+        /* タイトル少し小さく */
+    }
+
+    .form-label {
+        font-size: 18px;
+        /* ラベルも少し小さく */
+    }
+
+    .form-input {
+        font-size: 15px;
+        /* 入力欄の文字も少し小さく */
+        padding: 10px 12px;
+    }
+
+    .register-button,
+    .login-button {
+        font-size: 16px;
+        padding: 12px;
+    }
+}
