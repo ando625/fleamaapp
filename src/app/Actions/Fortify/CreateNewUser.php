@@ -18,21 +18,17 @@ class CreateNewUser implements CreatesNewUsers
      *
      * @param  array<string, string>  $input
      */
-    public function create(array $input): User
+
+    public function create(array $input)
     {
-        //RegisterRequest をインスタンス化
-        $request = app(RegisterRequest::class);
+        app(\App\Http\Requests\RegisterRequest::class)->validate($input);
 
-        //配列の入力値をRequestにセット
-        $request->merge($input);
-
-        //バリデーションを実行
-        $request->validateResolved();
-
-        return User::create([
+        $user = User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
         ]);
+
+        return $user;
     }
 }

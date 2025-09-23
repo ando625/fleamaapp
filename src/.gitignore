@@ -23,3 +23,9 @@ yarn-error.log
 !/storage/app/public/item/**
 
 # 上記の設定により、storage/app/public/item フォルダと中の画像だけ Git に含める
+
+# MySQLのデータディレクトリはGit管理しない
+docker/mysql/data/
+
+# src の外の docker/mysql/data は ../docker/mysql/data/ ではなく絶対パスで指定
+/docker/mysql/data/

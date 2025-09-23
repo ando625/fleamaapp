@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,17 +16,11 @@ use App\Http\Controllers\ItemController;
 |
 */
 
+// トップページ
 Route::get('/', [ItemController::class, 'index']);
 
 
-
-Route::middleware('auth')->group(function () {
-    Route::get('/mypage', [UserController::class, 'mypage'])->name('mypage');
-    //Route::get('/items/create', [ItemController::class, 'create'])->name('items.create');
-    //Route::post('/items', [ItemController::class, 'store'])->name('items.store');
-});
-
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [AuthController::class, 'login']);
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 
 

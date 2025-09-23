@@ -25,18 +25,19 @@
                 <ul class="header-row">
                     @if (Auth::check())
                     <!-- ログインしている時　 -->
+                     <li class="header-nav__item">
+                        <form action="/logout" method="post">
+                            @csrf
+                            <button type="submit" class="header-nav__button">ログアウト</button>
+                        </form>
+                    </li>
                     <li class="heder-nav__item">
                         <a href="/mypage" class="header-nav__link">マイページ</a>
                     </li>
                     <li class="header-nav__item">
                         <a href="/sell" class="header-nav__link nav-button">出品</a>
                     </li>
-                    <li class="header-nav__item">
-                        <form action="/logout" method="post">
-                            @csrf
-                            <button type="submit" class="header-nav__button">ログアウト</button>
-                        </form>
-                    </li>
+                    
                     @else
                     <!-- ログインしてない時　-->
                     <li class="header-nav__item">
