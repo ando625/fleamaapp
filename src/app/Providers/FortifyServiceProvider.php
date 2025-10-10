@@ -10,6 +10,7 @@ use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Fortify\Fortify;
+use Illuminate\Support\Facades\Validator;
 
 
 class FortifyServiceProvider extends ServiceProvider
@@ -59,28 +60,16 @@ class FortifyServiceProvider extends ServiceProvider
         });
     
         // ログイン処理のカスタム
-        Fortify::authenticateUsing(function (\Illuminate\Http\Request $request) {
-            // フル FormRequest を使用
-            $loginRequest = \App\Http\Requests\LoginRequest::createFrom($request->all());
+        Fortify::authenticateUsing(function (Request $request) {
+            
+            // ① LoginRequest の rules と messages を取得
+            $loginRequest = new LoginRequest(); // インスタンス化
 
-            // FormRequest の authorize() を手動でチェック
-            if (!$loginRequest->authorize()) {
-            abort(403);
-        }
+            $rules = $loginRequest->rules();
+            $messages = $loginRequest->messages();
 
-            // Validator を作成
-            $validator = \Validator::make(
-                $loginRequest->all(),
-                $loginRequest->rules(),
-                $loginRequest->messages()
-            );
-
-            // withValidator() を手動で呼ぶ
-            $loginRequest->setValidator($validator);
-            $loginRequest->withValidator($validator);
-
-            // バリデーション実行
-            $validator->validate();
+            // ② 明示的にバリデーション
+            $request->validate($rules, $messages);
 
 
             // メールでユーザー検索

@@ -18,9 +18,9 @@ class CreateProfilesTable extends Migration
             // user_id カラム作成＋外部キー＋ユニーク制約＋削除時連鎖
             $table->foreignId('user_id')->unique()->constrained()->onDelete('cascade');
             $table->string('profile_image')->nullable();
-            $table->string('postal_code')->nullable();
-            $table->string('address')->nullable();
-            $table->string('building');
+            $table->string('postal_code');
+            $table->string('address');
+            $table->string('building')->nullable();
             $table->timestamps();
         });
     }

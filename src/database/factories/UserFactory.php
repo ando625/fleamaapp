@@ -36,4 +36,18 @@ class UserFactory extends Factory
             ];
         });
     }
+
+    
+    public function configure()
+    {
+        return $this->afterCreating(function ($user) {
+            // 作成後に自動でプロフィールを作る
+            $user->profile()->create([
+                'profile_image' => 'storage/default_avatar.png',
+                'postal_code' => '123-4567',
+                'address'     => '東京都渋谷区神南',
+                'building'    => 'テストマンション',
+            ]);
+        });
+    }
 }

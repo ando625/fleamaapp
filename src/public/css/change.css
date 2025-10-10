@@ -1,0 +1,149 @@
+.address-change-container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 20px;
+}
+
+.address-change-form {
+    width: 100%;
+    padding-bottom: 100px;
+        /* 下に余白を追加 */
+}
+
+.page-title {
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    color: #000000;
+    margin-bottom: 60px;
+}
+
+
+.form-group {
+    margin-bottom: 50px;
+}
+
+.form-label {
+    display: block;
+    font-size: 20px;
+    font-weight: bold;
+    color: #000000;
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.form-input {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #5F5F5F;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    box-sizing: border-box;
+}
+
+
+
+.update-button {
+    width: 100%;
+    background-color: #FF5555;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 18px;
+    font-size: 16px;
+    font-weight: bold;
+    height: 50px;
+    cursor: pointer;
+    margin-top: 30px;
+}
+
+.update-button:hover {
+    background-color: #FF5252;
+}
+
+.update-button:active {
+    background-color: #E53935;
+}
+
+/* エラーメッセージのスタイル（必要に応じて） */
+.error-message {
+    color: #d32f2f;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.form-input.error {
+    border-color: #d32f2f;
+}
+
+/* =====================================
+    PC対応（1400px〜1540px）
+===================================== */
+@media screen and (min-width: 1400px) and (max-width: 1540px) {
+    .address-change-container {
+        max-width: 900px;
+        /* 幅を少し広く */
+        padding-top: 40px;
+    }
+
+    .page-title {
+        font-size: 32px;
+        margin-bottom: 70px;
+    }
+
+    .form-label {
+        font-size: 22px;
+    }
+
+    .form-input {
+        padding: 18px;
+        font-size: 18px;
+    }
+
+    .update-button {
+        height: 60px;
+        font-size: 18px;
+        margin-top: 40px;
+    }
+}
+
+/* =====================================
+    タブレット対応（768px〜850px）
+===================================== */
+@media screen and (min-width: 768px) and (max-width: 850px) {
+    .address-change-container {
+        max-width: 95%;
+        padding: 0 10px;
+    }
+
+    .page-title {
+        font-size: 24px;
+        margin-bottom: 40px;
+    }
+
+    .form-label {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    .form-input {
+        padding: 12px;
+        font-size: 15px;
+    }
+
+    .form-group {
+        margin-bottom: 30px;
+    }
+
+    .update-button {
+        height: 45px;
+        font-size: 15px;
+        padding: 14px;
+        margin-top: 20px;
+    }
+}

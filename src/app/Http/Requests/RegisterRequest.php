@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class RegisterRequest extends FormRequest
 {
@@ -14,10 +15,15 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:20',
-            'email' => 'required|string|email',
-            'password' => 'required|string|min:8', 
-            'password_confirmation' => 'required|string|min:8',
+            'name' => ['required', 'string', 'max:20'],
+            'email' => [
+                'required',
+                'email:rfc',
+                'string',
+                Rule::unique('users', 'email'),
+            ],
+            'password' => ['required', 'string', 'min:8'],
+            'password_confirmation' => ['required', 'string', 'min:8'],
         ];
     }
 
@@ -30,6 +36,7 @@ class RegisterRequest extends FormRequest
             // メールアドレス
             'email.required' => 'メールアドレスを入力してください',
             'email.email' => 'メールアドレスはメール形式で入力してください',
+            'email.unique' => 'このメールアドレスはすでに登録されています',
 
             // パスワード
             'password.required' => 'パスワードを入力してください',

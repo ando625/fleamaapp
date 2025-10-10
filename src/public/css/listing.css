@@ -1,0 +1,298 @@
+/* 商品出品ページのスタイル */
+
+.container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.page-title {
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #000000;
+}
+
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+.form-section {
+    margin-bottom: 50px;
+}
+
+.section-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #000000;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #5F5F5F;
+}
+
+.section-title.no-border {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.section-title.big-title {
+    font-size: 28px;
+    color: #5F5F5F;
+    margin-bottom: 20px;
+    margin-top: 30px;
+}
+
+/* 画像アップロードエリア */
+.image-upload-area {
+    border: 1px dashed #5F5F5F;
+    border-radius: 4px;
+    width: 100%;
+    max-width: 680px;
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.btn-upload {
+    border: 2px solid #FF5655;
+    background-color: white;
+    color: #FF5655;
+    padding: 10px 30px;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 2;
+    margin-bottom: 10px;
+}
+
+/* 画像プレビューエリア */
+#image-preview {
+    display: none;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+#image-preview.show {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#preview {
+    display: block;
+    max-width: 100%;
+    max-height: 400px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+}
+
+/* ボタンを画像の下に配置 */
+.btn-upload.below-image {
+    margin-top: 15px;
+}
+
+/* フォームグループ */
+.form-group {
+    margin-bottom: 30px;
+}
+
+.form-label {
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    color: #000000;
+    margin-bottom: 5px;
+}
+
+/* カテゴリーボタン */
+.category-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.btn-category {
+    border: 2px solid #FF5655;
+    background-color: white;
+    color: #FF5655;
+    padding: 8px 20px;
+    border-radius: 25px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+}
+
+.btn-category:hover,
+.btn-category.active {
+    background-color: #FF5655;
+    color: white;
+}
+
+/* フォーム入力 */
+.form-input,
+.form-select,
+.form-textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #5F5F5F;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #000000;
+    background-color: white;
+    box-sizing: border-box;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+    outline: none;
+    border-color: #FF5655;
+}
+
+.form-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg width='14' height='8' viewBox='0 0 14 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M1 1L7 7L13 1' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    padding-right: 40px;
+    cursor: pointer;
+}
+
+.form-select.open {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 120px;
+    font-family: inherit;
+}
+
+
+/* 送信ボタン */
+.btn-submit {
+    width: 100%;
+    padding: 16px;
+    background-color: #FF5655;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 30px;
+}
+
+.alert-success {
+    background-color: #d1e7dd;
+    color: #0f5132;
+    border: 1px solid #badbcc;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 16px;
+}
+
+/* タブレット対応 (768px - 850px) */
+@media (min-width: 768px) and (max-width: 850px) {
+    .container {
+        max-width: 90%;
+        padding: 30px 15px;
+    }
+
+    .page-title {
+        font-size: 32px;
+    }
+
+    .section-title.big-title {
+        font-size: 24px;
+    }
+
+    .image-upload-area {
+        max-width: 100%;
+        min-height: 130px;
+    }
+
+    #preview {
+        max-height: 350px;
+    }
+
+    .btn-category {
+        font-size: 12px;
+        padding: 7px 18px;
+    }
+
+    .form-label {
+        font-size: 16px;
+    }
+}
+
+/* PC対応 (1400px - 1540px) */
+@media (min-width: 1400px) and (max-width: 1540px) {
+    .container {
+        max-width: 900px;
+        padding: 50px 30px;
+    }
+
+    .page-title {
+        font-size: 42px;
+        margin-bottom: 30px;
+    }
+
+    .section-title {
+        font-size: 20px;
+    }
+
+    .section-title.big-title {
+        font-size: 32px;
+        margin-bottom: 25px;
+    }
+
+    .image-upload-area {
+        max-width: 850px;
+        min-height: 180px;
+    }
+
+    #preview {
+        max-width: 800px;
+        max-height: 500px;
+    }
+
+    .btn-upload {
+        padding: 12px 35px;
+        font-size: 16px;
+    }
+
+    .btn-category {
+        font-size: 14px;
+        padding: 10px 24px;
+    }
+
+    .form-label {
+        font-size: 20px;
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+        padding: 14px 18px;
+        font-size: 16px;
+    }
+
+    .btn-submit {
+        padding: 18px;
+        font-size: 18px;
+    }
+}

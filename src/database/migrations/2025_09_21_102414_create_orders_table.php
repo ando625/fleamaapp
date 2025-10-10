@@ -22,7 +22,7 @@ class CreateOrdersTable extends Migration
             $table->string('recipient_address');
             $table->string('recipient_building')->nullable();
             $table->string('payment_method');
-            $table->timestamp('created_at')->useCurrent();
+            $table->timestamps();
         });
     }
 

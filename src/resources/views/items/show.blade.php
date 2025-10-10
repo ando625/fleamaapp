@@ -1,0 +1,185 @@
+@extends('layouts.app')
+
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/show.css') }}">
+@endsection
+
+@section('content')
+<div class="product-detail-container">
+    <div class="product-main">
+        <!-- 商品画像 -->
+        <div class="product-image">
+            <div class="image-placeholder">
+                <img src="{{ asset('storage/'.$item->item_path) }}" alt="{{ $item->name }}">
+            </div>
+        </div>
+
+        <!-- 商品情報 -->
+        <div class="product-info">
+            <h1 class="product-title">{{ $item->name }}</h1>
+            <div class="brand-name">{{ $item->brand ?: 'ブランドなし' }}</div>
+            <div class="price">¥{{ number_format($item->price)}} <span class="tax-included">(税込)</span></div>
+
+            <!-- 評価とコメント数 -->
+            <div class="rating-section">
+                <div class="rating">
+                    @auth
+                    <form action="{{ Auth::user()->favorites->contains($item->id) ? route('items.unfavorite', $item) : route('items.favorite', $item) }}" method="POST">
+                        @csrf
+                        @if(Auth::user()->favorites->contains($item->id))
+                        @method('DELETE')
+                        @endif
+                        <button class="star {{ Auth::user()->favorites->contains($item->id) ? 'star-active' : '' }}" type="submit">
+                            @if(Auth::user()->favorites->contains($item->id))
+                            <!-- 黄色い星（お気に入り済み） -->
+                            <svg width="45" height="45" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
+                                    fill="#FFD700"
+                                    stroke="#FFD700"
+                                    stroke-width="1.5"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                            @else
+                            <!-- グレーの星（角が丸い） -->
+                            <svg width="45" height="45" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
+                                    fill="none"
+                                    stroke="#999999"
+                                    stroke-width="1.5"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                            @endif
+                        </button>
+                    </form>
+                    @else
+                    <span class="star" title="ログインするとお気に入りに追加できます">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="none" stroke="#999999" stroke-width="2" />
+                        </svg>
+                    </span>
+                    @endauth
+                    <div class="rating-number">{{ $item->favoritedUsers()->count() }}</div>
+                </div>
+
+                <div class="comments-count">
+                    <span class="comment-icon" style="font-size:2rem;"><svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <rect width="40" height="40" fill="url(#pattern0_85022_210)" />
+                            <defs>
+                                <pattern id="pattern0_85022_210" patternContentUnits="objectBoundingBox" width="1" height="1">
+                                    <use xlink:href="#image0_85022_210" transform="scale(0.0078125)" />
+                                </pattern>
+                                <image id="image0_85022_210" width="128" height="128" preserveAspectRatio="none" xlink:href="data:image/png;base64,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" />
+                            </defs>
+                        </svg>
+                    </span>
+                    <div class="comment-number">{{ $item->comments()->count() }}</div>
+                </div>
+            </div>
+
+            <form action="{{ route('purchase.buy', $item) }}">
+                <button class="purchase-btn" type="submit">購入手続きへ</button>
+            </form>
+
+            <!-- 商品説明 -->
+            <div class="product-description">
+                <h3>商品説明</h3>
+                <div class="description-content">
+                    <p>{{ $item->description }}</p>
+                </div>
+            </div>
+
+            <!-- 商品情報 -->
+            <div class="product-details">
+                <h3>商品の情報</h3>
+                <div class="details-grid">
+                    <div class="detail-row">
+                        <span class="detail-label">カテゴリー</span>
+                        <div class="category-tags">
+                            @foreach($item->categories as $category)
+                            <span class="tag">{{ $category->name ?? '未設定' }}</span>
+                            @endforeach
+                        </div>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">商品の状態</span>
+                        <span class="detail-value">{{ $item->condition->name ?? '未設定' }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- コメントセクション -->
+            <div class="comments-section">
+                <h3 class="comments-title">コメント({{ $item->comments->count() }})</h3>
+
+                <!-- ユーザー表示 -->
+                <div class="comment-header">
+                    <div class="comment-avatar">
+                        @auth
+                        <img src="{{ Auth::user()->profile?->profile_image ? asset('storage/' . Auth::user()->profile->profile_image) : asset('images/default-avatar.png') }}">
+                        @else
+                        <div class="comment-avatar"></div>
+                        @endauth
+                    </div>
+                    <span class="comment-author">
+                        @auth
+                        {{ Auth::user()->name }}
+                        @else
+                        admin
+                        @endauth
+                    </span>
+                </div>
+
+                <!-- コメント内容表示 -->
+                <div class="all-comments">
+                    @forelse($item->comments as $comment)
+                    <div class="comment-box">
+                        <div class="comment-header-small">
+                            @if($comment->user && $comment->user->profile?->profile_image)
+                            <img src="{{ asset('storage/' . $comment->user->profile->profile_image) }}" alt="{{ $comment->user->name }}">
+                            @else
+                            <div class="comment-avatar-small"></div>
+                            @endif
+                            <span class="comment-author-small">{{ $comment->user->name ?? 'ゲスト' }}</span>
+                        </div>
+                        <div class="comment-content-small">{{ $comment->content }}</div>
+                    </div>
+                    @empty
+                    <div class="comment-box">
+                        <div class="comment-content-small">
+                            ここにコメントが入ります
+                        </div>
+                    </div>
+                    @endforelse
+                </div>
+
+                <!-- コメント投稿フォーム -->
+                <div class="comment-form">
+                    <h4>商品へのコメント</h4>
+                    <form action="{{ route('items.comment', $item) }}" method="POST">
+                        @csrf
+                        <textarea name="content" placeholder="コメントを入力してください..." rows="6" value="{{ old('content') }}"></textarea>
+                        @error('content')
+                        <p class="error-message">{{ $message }}</p>
+                        @enderror
+                        @auth
+                        <button type="submit" class="comment-submit-btn">コメントを送信する</button>
+                        @else
+                        <button type="button" class="comment-submit-btn">コメントを送信する</button>
+                        @endauth
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    const star = document.querySelector('.star-icon');
+
+    star.addEventListener('click', () => {
+        star.classList.toggle('active');
+    });
+</script>
+@endsection

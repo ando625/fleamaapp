@@ -20,15 +20,25 @@ class CreateNewUser implements CreatesNewUsers
      */
 
     public function create(array $input)
-    {
-        app(\App\Http\Requests\RegisterRequest::class)->validate($input);
+{
+    $validator = Validator::make($input, 
+        app(\App\Http\Requests\RegisterRequest::class)->rules(),
+        app(\App\Http\Requests\RegisterRequest::class)->messages()
+    );
 
-        $user = User::create([
-            'name' => $input['name'],
-            'email' => $input['email'],
-            'password' => Hash::make($input['password']),
-        ]);
+    // パスワード確認も追加
+    $validator->after(function ($validator) use ($input) {
+        if (($input['password'] ?? null) !== ($input['password_confirmation'] ?? null)) {
+            $validator->errors()->add('password_confirmation', 'パスワードと一致しません');
+        }
+    });
 
-        return $user;
-    }
+    $validator->validate(); // バリデーション実行
+
+    return User::create([
+        'name' => $input['name'],
+        'email' => $input['email'],
+        'password' => Hash::make($input['password']),
+    ]);
+}
 }

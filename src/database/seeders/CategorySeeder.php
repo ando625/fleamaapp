@@ -7,23 +7,34 @@ use Illuminate\Support\Facades\DB;
 
 class CategorySeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run(): void
     {
         $categories = [
-            'ファッション', '家電', 'インテリア', 'レディース', 'メンズ', 'コスメ', '本', 'ゲーム', 'スポーツ', 'キッチン', 'ハンドメイド', 'アクセサリー', 'おもちゃ', 'ベビー・キッズ',
+            1 => 'ファッション',
+            2 => '家電',
+            3 => 'インテリア',
+            4 => 'レディース',
+            5 => 'メンズ',
+            6 => 'コスメ',
+            7 => '本',
+            8 => 'ゲーム',
+            9 => 'スポーツ',
+            10 => 'キッチン',
+            11 => 'ハンドメイド',
+            12 => 'アクセサリー',
+            13 => 'おもちゃ',
+            14 => 'ベビー・キッズ',
         ];
 
-        foreach ($categories as $category) {
-            DB::table('categories')->insert([
-                'name' => $category,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
+        foreach ($categories as $id => $name) {
+            DB::table('categories')->updateOrInsert(
+                ['id' => $id], // ここでIDを固定
+                [
+                    'name' => $name,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]
+            );
         }
     }
 }

@@ -72,7 +72,7 @@
     list-style: none;
 }
 
-.heder-nav__item,
+
 .header-nav__item {
     display: flex;
     align-items: center;
@@ -100,8 +100,6 @@
     padding: 8px 16px !important;
 }
 
-
-
 /* ログアウトボタンのスタイル */
 .header-nav__button {
     background: none;
@@ -118,7 +116,11 @@
     color: #ccc;
 }
 
-/* レスポンシブデザイン */
+
+
+/* --- レスポンシブ対応 --- */
+
+/* スマホ (〜768px) */
 @media (max-width: 768px) {
     .header-container {
         padding: 0 16px;
@@ -143,6 +145,7 @@
     }
 }
 
+/* 小さいスマホ (〜480px) */
 @media (max-width: 480px) {
     .header-container {
         flex-wrap: wrap;
@@ -161,5 +164,34 @@
 
     .header-row {
         gap: 12px;
+    }
+}
+
+/* タブレット (768px〜850px) */
+@media (min-width: 768px) and (max-width: 850px) {
+    .header-container {
+        max-width: 100%;
+        padding: 0 10px;
+    }
+
+    .search-container {
+        max-width: 400px;
+        margin: 0 20px;
+    }
+
+    .header-row {
+        gap: 20px;
+    }
+}
+
+/* PC (1400px〜1540px) */
+@media (min-width: 1400px) and (max-width: 1540px) {
+    .header-container {
+        max-width: 1400px;
+    }
+
+    .search-container {
+        max-width: 600px;
+        margin: 0 60px;
     }
 }

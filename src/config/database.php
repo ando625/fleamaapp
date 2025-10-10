@@ -63,6 +63,29 @@ return [
             ]) : [],
         ],
 
+        'mysql_test' => [
+            'driver' => 'mysql', // 使うドライバはMySQLで同じ
+            'url' => env('DATABASE_URL'), // URL設定（使わないことが多い）
+            'host' => env('DB_HOST', '127.0.0.1'), // ホスト名（MySQLコンテナの場所）
+            'port' => env('DB_PORT', '3306'), // ポート番号（通常3306）
+
+            // ここからが大事！！
+            'database' => 'demo_test', // ← テスト用に作ったDB名
+            'username' => 'root',      // ← DBに入るユーザー名（MySQL用）
+            'password' => 'root',      // ← パスワード（docker-compose.yml で設定したやつ）
+
+            'unix_socket' => env('DB_SOCKET', ''), // ソケット（通常空でOK）
+            'charset' => 'utf8mb4',  // 文字コード（日本語とかに対応）
+            'collation' => 'utf8mb4_unicode_ci', // 文字の並び順
+            'prefix' => '', // テーブル名の前につける接頭辞（通常空）
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+        ],
+
         'pgsql' => [
             'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),

@@ -59,7 +59,7 @@ DB_PASSWORD=laravel_pass
 - マイグレーション実行
 ```php artisan migrate```
 
-- シーディング実行
+- シーディング実行（初期データ投入）
 ```php artisan db:seed```
 
 ### 3-6. ストレージのリンク作成
@@ -69,14 +69,38 @@ DB_PASSWORD=laravel_pass
 ```php artisan storage:link```
 
 
+## 4.PHPUnitテスト
+
+	GD 拡張のインストール
+
+    apt-get update
+apt-get install -y libpng-dev
+docker-php-ext-install gd
+
+.	PHP-FPM の再起動
+exit  # コンテナから出る
+docker compose restart php
+
+再度 GD が有効になっているか確認
+docker compose exec php bash
+php -m | grep gd
+
+
+### 4-1. PHPコンテナに入る
+
+```docker compose exec php bash```
+
+### 4-2. テストを実行
+```php artisan test```
+
 ---
 
 ## 5. 注意事項
 
 - Docker の MySQL データは Git には含めないよう .gitignore に設定済みです。  
-- Mac M1/M2 でビルドエラーが出た場合は、platform: linux/x86_64 を追加してください。
+- Mac M1/M2 ARM 環境では、MySQL と phpMyAdmin に `platform: linux/amd64` が指定済みです。Windows x86 環境でもそのまま動作します。
 - PHP 8.1 以降の環境では、`php.ini` 内の  
-```mbstring.internal_encoding``` 設定は廃止されているため  
+```mbstring.internal_encoding``` 設定は廃止されているため警告が出る場合は  
 コメントアウトしてください。
 
 

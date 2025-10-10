@@ -12,6 +12,6 @@ class RegisterResponse implements RegisterResponseContract
 
         // プロフィール編集画面へ
         session()->flash('newly_registered', true);
-    return redirect()->route('profile.edit');
+        return redirect()->route('profile.create');
     }
 }

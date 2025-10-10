@@ -130,8 +130,11 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'email' => [
+            'required' => 'メールアドレスを入力してください',  // ←ここで上書き
+        ],
+        'password' => [
+            'required' => 'パスワードを入力してください',      // ←ここで上書き
         ],
     ],
 
@@ -146,5 +149,8 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'email' => 'メールアドレス',
+        'password' => 'パスワード',
+    ],
 ];
