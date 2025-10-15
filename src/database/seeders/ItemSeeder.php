@@ -25,8 +25,7 @@ class ItemSeeder extends Seeder
                 'item_path' => 'item/ArmaniClock.jpg',
                 'created_at' => now(),
                 'updated_at' => now(),
-                'user_id' => 1, //これでuser_idを入れている
-                
+                'user_id' => 1,
             ],
             [
                 'name' => 'HDD',
@@ -38,7 +37,7 @@ class ItemSeeder extends Seeder
                 'item_path' => 'item/HDD.jpg',
                 'created_at' => now(),
                 'updated_at' => now(),
-                'user_id' => 1, 
+                'user_id' => 1,
             ],
             [
                 'name' => '玉ねぎ３束',
@@ -50,7 +49,7 @@ class ItemSeeder extends Seeder
                 'item_path' => 'item/Onion.jpg',
                 'created_at' => now(),
                 'updated_at' => now(),
-                'user_id' => 1, 
+                'user_id' => 1,
             ],
             [
                 'name' => '革靴',
@@ -62,7 +61,7 @@ class ItemSeeder extends Seeder
                 'item_path' => 'item/Shoes.jpg',
                 'created_at' => now(),
                 'updated_at' => now(),
-                'user_id' => 1, 
+                'user_id' => 1,
             ],
             [
                 'name' => 'ノートPC',
@@ -74,7 +73,7 @@ class ItemSeeder extends Seeder
                 'item_path' => 'item/Laptop.jpg',
                 'created_at' => now(),
                 'updated_at' => now(),
-                'user_id' => 1, 
+                'user_id' => 1,
             ],
             [
                 'name' => 'マイク',
@@ -86,7 +85,7 @@ class ItemSeeder extends Seeder
                 'item_path' => 'item/Mic.jpg',
                 'created_at' => now(),
                 'updated_at' => now(),
-                'user_id' => 1, 
+                'user_id' => 1,
             ],
             [
                 'name' => 'ショルダーバック',
@@ -98,7 +97,7 @@ class ItemSeeder extends Seeder
                 'item_path' => 'item/bag.jpg',
                 'created_at' => now(),
                 'updated_at' => now(),
-                'user_id' => 1, 
+                'user_id' => 1,
             ],
             [
                 'name' => 'タンブラー',
@@ -110,7 +109,7 @@ class ItemSeeder extends Seeder
                 'item_path' => 'item/Tumbler.jpg',
                 'created_at' => now(),
                 'updated_at' => now(),
-                'user_id' => 1, // ← ここを追加
+                'user_id' => 1,
             ],
             [
                 'name' => 'コーヒーミル',
@@ -122,7 +121,7 @@ class ItemSeeder extends Seeder
                 'item_path' => 'item/CoffeeGrinder.jpg',
                 'created_at' => now(),
                 'updated_at' => now(),
-                'user_id' => 1, 
+                'user_id' => 1,
             ],
             [
                 'name' => 'メイクセット',
@@ -134,11 +133,10 @@ class ItemSeeder extends Seeder
                 'item_path' => 'item/Makeupset.jpg',
                 'created_at' => now(),
                 'updated_at' => now(),
-                'user_id' => 1, 
+                'user_id' => 1,
             ],
-            
         ];
 
-        DB::table('items')->insert($items); // ← ここで実際に登録
+        DB::table('items')->insert($items);
     }
 }

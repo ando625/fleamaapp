@@ -5,10 +5,9 @@
     padding: 0 20px;
     gap: 40px;
 }
-/* buy.css に追加 */
+
 .main-content.purchase-page {
     margin-top: 50px;
-    /* 購入ページだけの余白 */
 }
 
 .purchase-content {
@@ -74,6 +73,7 @@
     font-weight: bold;
     color: #333;
     margin-bottom: 20px;
+
 }
 
 .payment-section {
@@ -138,6 +138,7 @@
 
 .delivery-address {
     padding-left: 80px;
+    margin-top: -20px;
 }
 
 .postal-code,
@@ -220,7 +221,6 @@
 
 .alert {
     margin: 10px auto;
-    /* 上下に余白を少しだけ */
     padding: 12px 20px;
     max-width: 1200px;
     background-color: #d4edda;
@@ -229,13 +229,10 @@
     border-radius: 4px;
 }
 
-/* --------------------------
-   タブレット (768px ～ 850px)
-   -------------------------- */
+
 @media (min-width: 768px) and (max-width: 850px) {
     .purchase-container {
         max-width: 800px;
-        /* タブレット幅に合わせる */
         padding: 0 18px;
         gap: 24px;
         margin: 40px auto;
@@ -259,7 +256,6 @@
         font-size: 22px;
     }
 
-    /* フォーム余白の調整（左余白を解除） */
     .payment-dropdown,
     .delivery-address {
         margin-left: 0;
@@ -272,7 +268,6 @@
         max-width: 420px;
     }
 
-    /* サイドバー幅指定（タブレットでも適度な幅に） */
     .purchase-sidebar {
         flex: 0 0 320px;
         position: sticky;
@@ -280,13 +275,10 @@
     }
 }
 
-/* --------------------------
-   大型 PC (1400px ～ 1540px)
-   -------------------------- */
+
 @media (min-width: 1400px) and (max-width: 1540px) {
     .purchase-container {
         max-width: 1400px;
-        /* 大画面向けに広げる */
         padding: 0 40px;
         gap: 60px;
         margin: 70px auto;
@@ -314,14 +306,13 @@
         margin-left: 0;
     }
 
-    /* サイドバーを固定幅で目立たせる */
     .purchase-sidebar {
         flex: 0 0 380px;
         position: sticky;
         top: 20px;
     }
 
-    /* 境界線や余白を強調（好みで調整） */
+
     .divider {
         margin: 50px 0;
     }

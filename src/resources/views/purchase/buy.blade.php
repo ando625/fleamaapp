@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-<form action="{{ route('purchase.store', $item->id) }}" method="post">
+<form action="{{ route('purchase.checkout', $item->id) }}" method="post">
     @csrf
     <div class="purchase-container">
         <div class="purchase-content">
@@ -32,8 +32,8 @@
                 <div class="payment-select">
                     <select class="payment-dropdown" name="payment_method" id="payment_method">
                         <option value="">選択してください</option>
-                        <option value="convenience">コンビニ払い</option>
-                        <option value="credit">カード支払</option>
+                        <option value="konbini">コンビニ払い</option>
+                        <option value="card">カード支払</option>
                     </select>
                     @error('payment_method')
                     <p class="error">{{ $message }}</p>

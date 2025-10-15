@@ -16,7 +16,6 @@ class ItemController extends Controller
     {
         $tab = $request->input('tab', 'recommend');
 
-        // キーワード取得・セッション保持
         if ($request->has('q')) {
             $q = $request->input('q');
             session(['search_q' => $q]);
@@ -27,7 +26,6 @@ class ItemController extends Controller
         }
 
         if ($tab === 'mylist') {
-            // マイリストはログインユーザーのみ
             if (auth()->check()) {
                 $query = Auth::user()->favorites()
                     ->with(['user', 'categories', 'condition'])
@@ -39,13 +37,11 @@ class ItemController extends Controller
 
                 $items = $query->get();
             } else {
-                $items = collect(); // 未ログインは空
+                $items = collect();
             }
         } else {
-            // おすすめ（トップページ）はログイン不要で全件表示
             $query = Item::with(['user', 'categories', 'condition']);
 
-            // ログインユーザーの場合、自分の出品は除外
             if (auth()->check()) {
                 $query->where('user_id', '!=', auth()->id());
             }
@@ -63,51 +59,43 @@ class ItemController extends Controller
     // お気に入り追加処理
     public function favorite(Request $request, Item $item)
     {
-        $user = Auth::user(); // ログイン中のユーザーを取得
-        $user->favorites()->syncWithoutDetaching([$item->id]); 
-        // syncWithoutDetaching:
-        // 中間テーブル favorites に item_id を追加
-        // すでに追加されていれば重複せず残る（detachされない）
+        $user = Auth::user();
+        $user->favorites()->syncWithoutDetaching([$item->id]);
 
-        return back()->with('success', 'お気に入りに追加しました'); 
-        // 前のページに戻る & メッセージをセッションに保存
+        return back();
     }
 
 
     // お気に入り削除処理
     public function unfavorite(Request $request, Item $item)
     {
-        $user = Auth::user(); // ログイン中のユーザーを取得
-        $user->favorites()->detach($item->id); 
+        $user = Auth::user();
+        $user->favorites()->detach($item->id);
         // detach(): 中間テーブルから item_id を削除する
 
-        return back()->with('success', 'お気に入りを解除しました');
+        return back();
     }
 
 
     // 商品詳細画面表示
     public function show(Item $item)
     {
-        // 関連データもまとめて取得して再取得
         $item = Item::with(['user', 'categories', 'condition', 'comments.user'])
-                    ->findOrFail($item->id); // 該当商品がなければ404を返す
+                    ->findOrFail($item->id);
 
-        return view('items.show', compact('item')); // items.show ブレードに $item を渡す
+        return view('items.show', compact('item'));
     }
 
     // コメント保存
     public function storeComment(CommentRequest $request, Item $item)
     {
-        // バリデーション済みのデータだけを取得
         $validated = $request->validated();
 
-        // コメントを保存
         $item->comments()->create([
-            'user_id' => auth()->id(),    // コメントしたユーザーID
-            'content' => $validated['content'], // 入力されたコメント内容
+            'user_id' => auth()->id(),
+            'content' => $validated['content'],
         ]);
 
-        // コメント保存後、商品詳細画面にリダイレクト
         return redirect()->route('items.show', $item);
     }
 
@@ -115,33 +103,27 @@ class ItemController extends Controller
     // 出品画面表示
     public function listing()
     {
-        //カテゴリを全部取得
         $categories = Category::orderBy('id')->get();
 
-        return view('listing', compact('categories')); // listing.blade.php を表示
+        return view('listing', compact('categories'));
     }
 
 
     //商品出品
     public function storeListing(ExhibitionRequest $request)
     {
-        //バリデーション済みデータ取得
+
         $data = $request->validated();
 
-        //画像アップロード
         if ($request->hasFile('item_path')) {
             $data['item_path'] = $request->file('item_path')->store('item','public');
         }
 
-        //ログインユーザーのIDをセット
         $data['user_id'] = Auth::id();
 
-
-        //itemモデルに＄dataをDBに保存
         $item = Item::create($data);
 
-        // カテゴリーを多対多テーブルに保存
-        $categoryIds = explode(',', $request->input('category_id'));  // 配列に変換
+        $categoryIds = explode(',', $request->input('category_id'));
         $item->categories()->sync($categoryIds);
 
         return redirect('/')->with('success', '商品を出品しました');

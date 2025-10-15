@@ -13,7 +13,7 @@ class CommentRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->check(); // ログインしているユーザーのみ許可
+        return auth()->check();
     }
 
     /**

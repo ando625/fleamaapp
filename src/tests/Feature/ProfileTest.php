@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Item;
 use App\Models\User;
@@ -23,21 +22,16 @@ class ProfileTest extends TestCase
 
     public function test_ユーザー情報取得()
     {
-        //ログイン対象ユーザー
         $user = User::factory()->create([
             'name' => 'テスト太郎',
         ]);
 
-        //そのユーザーの出品
         $itemsForSale = Item::factory()->count(2)->create([
             'user_id' => $user->id,
             'name' => 'テスト商品'
         ]);
 
-        //別ユーザー作成
         $seller = User::factory()->create();
-
-        //商品作成　購入
         $buyItems = Item::factory()->count(2)->create([
             'user_id' => $seller->id,
             'name' => 'テスト商品'
@@ -54,7 +48,6 @@ class ProfileTest extends TestCase
             ]);
         }
 
-        //ユーザーでログインしてプロフィール画面へ
         $response = $this->actingAs($user)->get('/mypage');
 
         $response->assertStatus(200);
@@ -63,12 +56,10 @@ class ProfileTest extends TestCase
             $response->assertSee($user->profile->profile_image);
         }
 
-        //出品商品の一覧確認
         foreach ($itemsForSale as $item) {
             $response->assertSee($item->name);
         }
 
-        //購入商品の一覧確認
         foreach ($buyItems as $item) {
             $response->assertSee($item->name);
         }
@@ -82,7 +73,6 @@ class ProfileTest extends TestCase
             'name' => '変更テスト',
         ]);
 
-        //プロフィールを上書き
         $user->profile()->update([
             'profile_image' => 'storage/edit_avatar.png',
             'postal_code' => '987-6543',
@@ -90,7 +80,6 @@ class ProfileTest extends TestCase
             'building' => 'テストハウス'
         ]);
 
-        //ログインして編集ページにアクセス
         $response = $this->actingAs($user)->get('/profile/edit');
 
         $response->assertStatus(200);

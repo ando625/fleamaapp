@@ -1,10 +1,7 @@
-/* ヘッダー全体のスタイル */
+
 .header {
     background-color: #000;
     padding: 12px 0;
-    /*position: sticky;
-    top: 0;
-    z-index: 1000; */
 }
 
 .header-container {
@@ -17,7 +14,7 @@
     gap: 20px;
 }
 
-/* ロゴスタイル */
+
 .logo {
     flex-shrink: 0;
 }
@@ -32,7 +29,6 @@
     width: auto;
 }
 
-/* 検索バーのスタイル */
 .search-container {
     flex: 1;
     max-width: 500px;
@@ -58,7 +54,7 @@
     box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
 }
 
-/* ナビゲーションのスタイル */
+
 .header-nav {
     flex-shrink: 0;
 }
@@ -91,7 +87,7 @@
     color: #ccc;
 }
 
-/* 出品ボタンのスタイル */
+
 .nav-button {
     background-color: #FFFFFF;
     border: 1px solid #000000;
@@ -100,7 +96,7 @@
     padding: 8px 16px !important;
 }
 
-/* ログアウトボタンのスタイル */
+
 .header-nav__button {
     background: none;
     border: none;
@@ -167,7 +163,7 @@
     }
 }
 
-/* タブレット (768px〜850px) */
+
 @media (min-width: 768px) and (max-width: 850px) {
     .header-container {
         max-width: 100%;
@@ -184,7 +180,6 @@
     }
 }
 
-/* PC (1400px〜1540px) */
 @media (min-width: 1400px) and (max-width: 1540px) {
     .header-container {
         max-width: 1400px;

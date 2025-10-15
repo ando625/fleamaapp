@@ -11,7 +11,6 @@
 .address-change-form {
     width: 100%;
     padding-bottom: 100px;
-        /* 下に余白を追加 */
 }
 
 .page-title {
@@ -70,7 +69,7 @@
     background-color: #E53935;
 }
 
-/* エラーメッセージのスタイル（必要に応じて） */
+
 .error-message {
     color: #d32f2f;
     font-size: 14px;
@@ -81,13 +80,10 @@
     border-color: #d32f2f;
 }
 
-/* =====================================
-    PC対応（1400px〜1540px）
-===================================== */
+
 @media screen and (min-width: 1400px) and (max-width: 1540px) {
     .address-change-container {
         max-width: 900px;
-        /* 幅を少し広く */
         padding-top: 40px;
     }
 
@@ -112,9 +108,6 @@
     }
 }
 
-/* =====================================
-    タブレット対応（768px〜850px）
-===================================== */
 @media screen and (min-width: 768px) and (max-width: 850px) {
     .address-change-container {
         max-width: 95%;

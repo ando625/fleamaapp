@@ -14,6 +14,13 @@
         </div>
     </div>
     @endif
+    @if(session('error'))
+    <div class="alert-error-wrapper">
+        <div class="alert-error">
+            ❌{{ session('error') }}
+        </div>
+    </div>
+    @endif
 
 
     <nav class="tab-navigation">

@@ -117,7 +117,9 @@
                 <div class="comment-header">
                     <div class="comment-avatar">
                         @auth
+                        @if(Auth::user()->profile?->profile_image)
                         <img src="{{ Auth::user()->profile?->profile_image ? asset('storage/' . Auth::user()->profile->profile_image) : asset('images/default-avatar.png') }}">
+                        @endif
                         @else
                         <div class="comment-avatar"></div>
                         @endauth
@@ -176,7 +178,7 @@
     </div>
 </div>
 <script>
-    const star = document.querySelector('.star-icon');
+    const star = document.querySelector('.star');
 
     star.addEventListener('click', () => {
         star.classList.toggle('active');

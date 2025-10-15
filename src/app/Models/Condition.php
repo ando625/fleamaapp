@@ -17,5 +17,4 @@ class Condition extends Model
         return $this->hasMany(Item::class);
     }
 
-
 }

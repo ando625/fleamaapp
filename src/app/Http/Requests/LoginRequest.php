@@ -33,10 +33,7 @@ class LoginRequest extends FormRequest
     {
         return [
             'email.required' => 'メールアドレスを入力してください',
-            
             'password.required' => 'パスワードを入力してください',
-
-            //	入力情報が間違っている場合の「ログイン情報が登録されていません」は、フォームリクエストではなく コントローラーの認証処理側 で返すメッセージになる
 
         ];
     }

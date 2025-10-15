@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Item;
 use App\Models\Order;
 use App\Http\Requests\AddressRequest;
 use App\Http\Requests\PurchaseRequest;
+use Stripe\Stripe;
+
 
 class PurchaseController extends Controller
 {
@@ -16,18 +19,14 @@ class PurchaseController extends Controller
         $user = Auth::user();
         if (!$user) return redirect()->route('login');
 
-        //売り切れながら購入画面に進ませない
         if ($item->status == 'sold') {
-            return redirect()->route('items.index')
-                            ->with('error', 'この商品はすでに購入されています');
+            return redirect()->route('items.index');
         }
 
         $profile = $user->profile;
 
-        // 商品ごとのセッションキーを作る（複数タブで競合しないように）
         $sessionKey = "purchase_address_{$item->id}";
 
-        //セッションにデータがない場合だけプロフィールで初期化
         if (!session()->has($sessionKey)) {
             session([$sessionKey => [
                 'postal_code' => $profile->postal_code,
@@ -36,7 +35,6 @@ class PurchaseController extends Controller
             ]]);
         }
 
-        //セッションから住所データを取得
         $addressData = session($sessionKey);
 
         return view('purchase.buy', compact('item', 'addressData', 'profile'));
@@ -64,10 +62,8 @@ class PurchaseController extends Controller
     // 住所変更処理
     public function updateAddress(AddressRequest $request, Item $item)
     {
-        // AddressRequestでバリデーション済み
         $validated = $request->validated();
 
-        // 商品ごとにセッションを分けて保存（複数タブでの競合を防ぐ）
         $sessionKey = "purchase_address_{$item->id}";
         session([$sessionKey => $validated]);
 
@@ -75,41 +71,77 @@ class PurchaseController extends Controller
     }
 
     // 購入処理
-    public function store(PurchaseRequest $request, Item $item)
+    public function checkoutStore(Item $item, PurchaseRequest $request)
     {
-
-        if (!Auth::check()) {
-        dd('認証されていません');
-    }
         $user = Auth::user();
+        if (!$user) return redirect()->route('login');
 
-        $validated = $request->validated();
+        $paymentMethod = $request->input('payment_method', 'card');
 
-        $sessionKey = "purchase_address_{$item->id}";
+        // コンビニ支払い
+        if ($paymentMethod === 'konbini') {
+            Order::create([
+                'user_id' => $user->id,
+                'item_id' => $item->id,
+                'payment_method' => 'convenience_store',
+                'recipient_name' => $user->name,
+                'recipient_postal' => $user->profile->postal_code,
+                'recipient_address' => $user->profile->address,
+                'recipient_building' => $user->profile->building,
+            ]);
 
-        // セッションの住所を使用（なければプロフィール）
-        $addressData = session($sessionKey, [
-            'postal_code' => $user->profile->postal_code,
-            'address'     => $user->profile->address,
-            'building'    => $user->profile->building,
+            $item->update(['status' => 'sold']);
+
+            return redirect('/')->with('success', 'コンビニ支払いで購入が完了しました！');
+        }
+
+        // カード支払い（Stripe）
+        \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
+
+        $successUrl = route('purchase.complete', $item->id);
+        $cancelUrl  = route('purchase.cancel', $item->id);
+
+        $session = \Stripe\Checkout\Session::create([
+            'payment_method_types' => ['card'],
+            'line_items' => [[
+                'price_data' => [
+                    'currency' => 'jpy',
+                    'product_data' => ['name' => $item->name],
+                    'unit_amount' => $item->price,
+                ],
+                'quantity' => 1,
+            ]],
+            'mode' => 'payment',
+            'success_url' => $successUrl,
+            'cancel_url'  => $cancelUrl,
         ]);
 
+        return redirect($session->url);
+    }
+
+    // 購入完了（Stripeリダイレクト用）
+    public function completeStore(Item $item, Request $request)
+    {
+        $user = Auth::user();
+        if (!$user) return redirect()->route('login');
+
+        if ($item->status === 'sold') {
+            return redirect('/')->with('error', 'この商品はすでに購入されています');
+        }
+
         Order::create([
-            'user_id'           => $user->id,
-            'item_id'           => $item->id,
-            'payment_method'    => $request->payment_method,
-            'recipient_name'    => $user->name,
-            'recipient_postal'  => $addressData['postal_code'],
-            'recipient_address' => $addressData['address'],
-            'recipient_building'=> $addressData['building'],
+            'user_id' => $user->id,
+            'item_id' => $item->id,
+            'payment_method' => 'stripe',
+            'recipient_name' => $user->name,
+            'recipient_postal' => $user->profile->postal_code,
+            'recipient_address' => $user->profile->address,
+            'recipient_building' => $user->profile->building,
         ]);
 
         $item->update(['status' => 'sold']);
 
-        // セッションクリア（購入済みの商品だけ）
-        session()->forget($sessionKey);
-
-        return redirect('/')->with('success', '購入が完了しました');
+        return redirect('/')->with('success', 'カード支払いで購入が完了しました！');
     }
 
 

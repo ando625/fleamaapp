@@ -15,7 +15,6 @@ class CreateProfilesTable extends Migration
     {
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
-            // user_id カラム作成＋外部キー＋ユニーク制約＋削除時連鎖
             $table->foreignId('user_id')->unique()->constrained()->onDelete('cascade');
             $table->string('profile_image')->nullable();
             $table->string('postal_code');

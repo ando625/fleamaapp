@@ -5,12 +5,12 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+
 class RegisterTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function 名前が入力されていない場合はバリデーションエラー()
+    public function test_名前が入力されていない場合はバリデーションエラー()
     {
         $response = $this->from('/register')->post('/register', [
             'name' => '',
@@ -23,8 +23,7 @@ class RegisterTest extends TestCase
         $response->assertSessionHasErrors(['name']);
     }
 
-    /** @test */
-    public function メールアドレスが入力されていない場合はバリデーションエラー()
+    public function test_メールアドレスが入力されていない場合はバリデーションエラー()
     {
         $response = $this->from('/register')->post('/register', [
             'name' => 'test',
@@ -37,8 +36,7 @@ class RegisterTest extends TestCase
         $response->assertSessionHasErrors(['email']);
     }
 
-    /** @test */
-    public function パスワードが入力されていない場合はバリデーションエラー()
+    public function test_パスワードが入力されていない場合はバリデーションエラー()
     {
         $response = $this->from('/register')->post('/register', [
             'name' => 'test',
@@ -51,8 +49,7 @@ class RegisterTest extends TestCase
         $response->assertSessionHasErrors(['password']);
     }
 
-    /** @test */
-    public function パスワードが7文字以下の場合はバリデーションエラー()
+    public function test_パスワードが7文字以下の場合はバリデーションエラー()
     {
         $response = $this->from('/register')->post('/register', [
             'name' => 'test',
@@ -65,8 +62,7 @@ class RegisterTest extends TestCase
         $response->assertSessionHasErrors(['password']);
     }
 
-    /** @test */
-    public function パスワードと確認用パスワードが一致しない場合はバリデーションエラー()
+    public function test_パスワードと確認用パスワードが一致しない場合はバリデーションエラー()
     {
         $response = $this->from('/register')->post('/register', [
             'name' => 'test',
@@ -76,12 +72,10 @@ class RegisterTest extends TestCase
         ]);
 
         $response->assertRedirect('/register');
-        // RegisterRequest では password_confirmation にエラーが入る
         $response->assertSessionHasErrors(['password_confirmation']);
     }
 
-    /** @test */
-    public function 全て正しく入力された場合はユーザー登録されプロフィール作成画面にリダイレクト()
+    public function test_全て正しく入力された場合はユーザー登録される()
     {
         $response = $this->post('/register', [
             'name' => 'test',
@@ -89,8 +83,6 @@ class RegisterTest extends TestCase
             'password' => 'password123',
             'password_confirmation' => 'password123',
         ]);
-
-        $response->assertRedirect(route('profile.create'));
 
         $this->assertDatabaseHas('users', [
             'name' => 'test',

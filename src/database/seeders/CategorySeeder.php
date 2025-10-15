@@ -28,7 +28,7 @@ class CategorySeeder extends Seeder
 
         foreach ($categories as $id => $name) {
             DB::table('categories')->updateOrInsert(
-                ['id' => $id], // ここでIDを固定
+                ['id' => $id],
                 [
                     'name' => $name,
                     'created_at' => now(),

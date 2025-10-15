@@ -1,6 +1,4 @@
-/* =============================
-   商品詳細ページ全体
-   ============================= */
+
 .product-detail-container {
     max-width: 1200px;
     margin: 40px auto 0;
@@ -58,9 +56,7 @@
     margin: 0 auto;
 }
 
-/* =============================
-   商品情報
-   ============================= */
+
 .product-title {
     font-size: 40px;
     font-weight: bold;
@@ -104,8 +100,7 @@
     gap: 4px;
 }
 
-/* 星ボタン */
-/* 星ボタン */
+
 .star {
     background: none;
     border: none;
@@ -123,7 +118,7 @@
     height: 50px;
 }
 
-/* 評価・コメント数のレイアウト調整 */
+
 .rating-section {
     display: flex;
     align-items: center;
@@ -174,7 +169,6 @@
     margin-bottom: 30px;
 }
 
-/* 商品説明 */
 .product-description,
 .product-details {
     margin-bottom: 30px;
@@ -190,7 +184,6 @@
 .description-content p,
 .description-content {
     white-space: pre-line;
-    /* 改行を反映 */
 }
 
 .description-content p {
@@ -231,7 +224,6 @@
     font-weight: 500;
 }
 
-/* コメント */
 .comments-section {
     margin-top: 40px;
 }
@@ -260,14 +252,21 @@
     height: 55px;
     border-radius: 50%;
     background-color: #D9D9D9;
+    overflow: hidden;
 }
 .comment-avatar img {
     width: 100%;
-    /* 枠いっぱいに */
     height: 100%;
-    /* 枠いっぱいに */
     object-fit: cover;
-    /* 枠に合わせてトリミング */
+    display: block;
+}
+
+.comment-avatar:empty {
+    background-color: #D9D9D9;
+}
+
+.comment-avatar img[src*="default-avatar"] {
+    display: none;
 }
 
 .comment-author {
@@ -283,21 +282,21 @@
     line-height: 1.6;
     font-size: 14px;
 }
-/* 全体のコメントコンテナ */
+
 .all-comments {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-/* 各コメントボックス（背景グレーで囲む） */
+
 .comment-box {
     background-color: #E5E5E5;
     padding: 12px 15px;
     border-radius: 8px;
 }
 
-/* 小さいユーザー情報 */
+
 .comment-header-small {
     display: flex;
     align-items: center;
@@ -325,7 +324,6 @@
     color: #333;
 }
 
-/* コメント本文 */
 .comment-content-small {
     font-size: 14px;
     line-height: 1.4;
@@ -333,7 +331,6 @@
     word-wrap: break-word;
 }
 
-/* コメント投稿フォーム */
 .comment-form h4 {
     font-size: 20px;
     font-weight: bold;
@@ -350,7 +347,7 @@
     margin-bottom: 15px;
 }
 
-/* エラーメッセージ */
+
 .error-message {
     color: #ff4444;
     font-size: 16px;
@@ -369,9 +366,6 @@
     height: 50px;
 }
 
-/* =============================
-   レスポンシブ
-   ============================= */
 @media (max-width: 1200px) {
     .product-main {
         flex-direction: column;

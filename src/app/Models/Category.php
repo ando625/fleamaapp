@@ -12,11 +12,9 @@ class Category extends Model
 
     protected $fillable = [
         'name'
-
     ];
 
 
-    // 多対多　カテゴリに属するアイテム
     public function items()
     {
         return $this->belongsToMany(Item::class, 'items_categories');

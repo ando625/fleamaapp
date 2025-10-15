@@ -18,10 +18,9 @@ class Profile extends Model
         'postal_code',
         'address',
         'building',
-        
     ];
 
-    // User との1対1リレーション
+
     public function user() {
         return $this->belongsTo(User::class);
     }

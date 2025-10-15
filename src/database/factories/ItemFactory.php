@@ -20,17 +20,17 @@ class ItemFactory extends Factory
     {
         return [
             //
-            'user_id' => User::factory(),  // 新しいユーザーも自動生成
+            'user_id' => User::factory(),
             'name' => $this->faker->word,
             'brand' => $this->faker->company,
             'description' => $this->faker->sentence,
             'price' => $this->faker->numberBetween(1000, 50000),
-            'condition_id' => Condition::factory(), // これでItem生成時にConditionも自動生成
-            'status' => 'available', // デフォルトは available
-            'item_path' => 'item/default.jpg', // 適宜
+            'condition_id' => Condition::factory(),
+            'status' => 'available',
+            'item_path' => 'item/default.jpg',
         ];
     }
-    //購入済みに
+
     public function sold()
     {
         return $this->state(fn (array $attributes) => [

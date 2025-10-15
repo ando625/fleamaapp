@@ -20,9 +20,9 @@ class CommentFactory extends Factory
     {
         return [
             //
-            'user_id' => User::factory(), // コメントするユーザーを作る
-            'item_id' => Item::factory(), // コメント対象の商品を作る
-            'content' => $this->faker->sentence(), // ランダムなコメント内容
+            'user_id' => User::factory(),
+            'item_id' => Item::factory(),
+            'content' => $this->faker->sentence(),
             'created_at' => now(),
             'updated_at' => now(),
         ];

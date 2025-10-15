@@ -9,10 +9,10 @@
 <div class="profile-settings-container">
     <div class="profile-settings-wrapper">
         <h1 class="profile-title">プロフィール登録</h1>
-        
+
         <form action="{{ route('profile.store') }}" method="POST" enctype="multipart/form-data" class="profile-form">
             @csrf
-            
+
             <!-- プロフィール画像 -->
             <div class="profile-image-section">
                 <div class="profile-image-wrapper">
@@ -77,7 +77,7 @@
 document.getElementById('profile_image').addEventListener('change', function(e) {
     const file = e.target.files[0];
     const profileText = document.querySelector('.profile-image-text');
-    
+
     if (file) {
         const reader = new FileReader();
         reader.onload = function(e) {

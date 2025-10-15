@@ -30,19 +30,12 @@ class RegisterRequest extends FormRequest
     public function messages(): array
     {
         return [
-            // ユーザー名
             'name.required' => 'お名前を入力してください',
-
-            // メールアドレス
             'email.required' => 'メールアドレスを入力してください',
             'email.email' => 'メールアドレスはメール形式で入力してください',
             'email.unique' => 'このメールアドレスはすでに登録されています',
-
-            // パスワード
             'password.required' => 'パスワードを入力してください',
             'password.min' => 'パスワードは8文字以上で入力してください',
-
-            // 確認用パスワード
             'password_confirmation.required' => '確認用パスワードを入力してください',
             'password_confirmation.min' => 'パスワードは8文字以上で入力してください',
         ];
@@ -51,7 +44,6 @@ class RegisterRequest extends FormRequest
     public function withValidator($validator)
     {
         $validator->after(function ($validator) {
-            // パスワードと確認用パスワードの一致チェック
             if ($this->password !== $this->password_confirmation) {
                 $validator->errors()->add('password_confirmation', 'パスワードと一致しません');
             }

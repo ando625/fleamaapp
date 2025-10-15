@@ -1,4 +1,4 @@
-/* プロフィール設定ページのスタイル */
+
 .profile-settings-container {
     background-color: white;
     min-height: 100vh;
@@ -25,7 +25,6 @@
     width: 100%;
 }
 
-/* プロフィール画像セクション */
 .profile-image-section {
     display: flex;
     flex-direction: row;
@@ -56,7 +55,6 @@
     height: 100%;
     object-fit: cover;
     display: none;
-    /* 初期状態では非表示 */
 }
 
 .profile-image-text {
@@ -99,7 +97,6 @@
     color: #ffffff;
 }
 
-/* フォームグループ */
 .form-group {
     margin-bottom: 30px;
 }
@@ -133,7 +130,7 @@
     color: #999999;
 }
 
-/* エラーメッセージ */
+
 .error-message {
     display: block;
     color: #ff4444;
@@ -141,7 +138,6 @@
     margin-top: 5px;
 }
 
-/* 更新ボタン */
 .update-btn {
     width: 100%;
     padding: 15px;
@@ -164,83 +160,82 @@
     transform: translateY(1px);
 }
 
-/* レスポンシブデザイン */
-@media (max-width: 768px) {
-    .profile-settings-wrapper {
-        margin: 0 20px;
+
+@media screen and (min-width: 1400px) and (max-width: 1540px) {
+    .product-create-wrapper {
+        max-width: 900px;
+        padding: 50px 80px;
+    }
+
+    .product-title {
+        font-size: 34px;
+    }
+
+    .product-image-circle {
+        width: 160px;
+        height: 160px;
+    }
+
+    .upload-label {
+        font-size: 15px;
+        padding: 10px 25px;
+    }
+
+    .form-input,
+    .form-textarea,
+    .form-select {
+        font-size: 17px;
+        padding: 14px 18px;
+    }
+
+    .submit-btn {
+        font-size: 18px;
+        padding: 18px;
+    }
+}
+
+
+
+@media screen and (min-width: 768px) and (max-width: 850px) {
+    .product-create-wrapper {
+        max-width: 90%;
         padding: 30px 20px;
     }
 
-    .profile-title {
-        font-size: 20px;
+    .product-title {
+        font-size: 26px;
         margin-bottom: 30px;
     }
 
-    .profile-image-section {
+    .product-image-section {
         flex-direction: column;
         align-items: center;
         gap: 20px;
     }
 
-    .profile-image-circle {
+    .product-image-circle {
         width: 100px;
         height: 100px;
     }
 
-    .profile-image-text {
-        font-size: 10px;
-    }
-
-    .image-upload-btn {
-        justify-content: center;
-    }
-
-    .form-group {
-        margin-bottom: 25px;
+    .upload-label {
+        padding: 6px 16px;
+        font-size: 13px;
     }
 
     .form-label {
         font-size: 14px;
     }
 
-    .form-input {
-        padding: 10px 12px;
+    .form-input,
+    .form-textarea,
+    .form-select {
         font-size: 14px;
+        padding: 10px 14px;
     }
 
-    .update-btn {
+    .submit-btn {
+        font-size: 15px;
         padding: 12px;
-        font-size: 14px;
-    }
-}
-
-@media (max-width: 480px) {
-    .profile-settings-wrapper {
-        margin: 0 10px;
-        padding: 20px 15px;
-    }
-
-    .profile-image-section {
-        flex-direction: column;
-        align-items: center;
-        gap: 15px;
-    }
-
-    .profile-image-circle {
-        width: 80px;
-        height: 80px;
-    }
-
-    .profile-image-text {
-        font-size: 9px;
-    }
-
-    .image-upload-btn {
-        justify-content: center;
-    }
-
-    .upload-label {
-        padding: 6px 15px;
-        font-size: 12px;
     }
 }

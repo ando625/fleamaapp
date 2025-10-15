@@ -1,9 +1,8 @@
-/* リセットCSS */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    /* 幅や高さを計算するときにpaddingとborderも含めてね */
 }
 
 body {
@@ -13,7 +12,7 @@ body {
     background-color: white;
 }
 
-/* ヘッダー */
+
 .header {
     background-color: #000;
     padding: 12px 0;
@@ -29,21 +28,19 @@ body {
 .logo-link {
     display: inline-block;
     padding: 15px 0;
-    /* 登録ページと同じ余白を入れる */
 }
 
 .logo {
     height: 40px;
     width: auto;
-    /* 横幅は自動調整 */
 }
 
 /* メインコンテンツ */
 .main-content {
     display: flex;
-    justify-content: center;  /* 横方向は中央に寄せ */
-    align-items: center;      /* 縦方向も中央に寄せ */
-    padding: 40px 20px;      /* 内側に上下40px、左右20pxの余白 */
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
 }
 
 .login-container {
@@ -66,7 +63,7 @@ body {
 }
 
 .form-group {
-    margin-bottom: 30px;  /* 入力欄ごとに30pxの余白を入れて区切り */
+    margin-bottom: 30px;
 }
 
 .form-label {
@@ -84,19 +81,14 @@ body {
     border: 1px solid #5F5F5F;
     border-radius: 4px;
     outline: none;
-    /* デフォルトの青枠は消す */
 }
 
-/* エラーメッセージ */
+
 .error-message {
     display: block;
-    /* ブロック要素として表示してね */
     color: #e74c3c;
-    /* 赤色にしてエラーっぽくしてね */
     font-size: 14px;
-    /* 文字サイズを14pxにしてね */
     margin-top: 5px;
-    /* 上に5px余白を入れてね */
 }
 
 .login-button {
@@ -126,31 +118,25 @@ body {
 }
 
 
-/* PC向け (1400px〜1540px) */
 @media screen and (min-width: 1400px) and (max-width: 1540px) {
 
     .register-container,
     .login-container {
         max-width: 800px;
-        /* 最大幅を少し広げる */
         padding: 20px 60px;
-        /* 内側余白を広げる */
     }
 
     .register-title,
     .login-title {
         font-size: 40px;
-        /* タイトルを少し大きく */
     }
 
     .form-label {
         font-size: 22px;
-        /* ラベルを少し大きく */
     }
 
     .form-input {
         font-size: 18px;
-        /* 入力欄の文字も大きめ */
         padding: 14px 18px;
     }
 
@@ -161,31 +147,26 @@ body {
     }
 }
 
-/* タブレット向け (768px〜850px) */
+
 @media screen and (min-width: 768px) and (max-width: 850px) {
 
     .register-container,
     .login-container {
         max-width: 90%;
-        /* 画面幅に合わせる */
         padding: 15px 30px;
-        /* 内側余白を縮小 */
     }
 
     .register-title,
     .login-title {
         font-size: 32px;
-        /* タイトル少し小さく */
     }
 
     .form-label {
         font-size: 18px;
-        /* ラベルも少し小さく */
     }
 
     .form-input {
         font-size: 15px;
-        /* 入力欄の文字も少し小さく */
         padding: 10px 12px;
     }
 

@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PurchaseController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,22 +19,44 @@ use App\Http\Controllers\PurchaseController;
 */
 
 
-// ====================
-// 公開ルート
-// ====================
+
 
 // トップページ（商品一覧）
 Route::get('/', [ItemController::class, 'index'])->name('items.index');
 
 
-// 商品詳細（動的ルートは静的の後！）
+// 商品詳細
 Route::get('/item/{item}', [ItemController::class, 'show'])->name('items.show');
+
+
+// 認証誘導ページ
+Route::get('/email/verify', function () {
+    return view('auth.mail');
+})->middleware('auth')->name('verification.notice');
+
+
+// 認証リンク
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+    return redirect()->route('profile.create');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+
+
+// 認証メール再送
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+    return back()->with('message', '認証メールを再送信しました');
+})->middleware('auth')->name('verification.send');
+
+//テスト時のみあとで消す
+//})->middleware(['auth', 'throttle:100,1'])->name('verification.send');
 
 
 // ====================
 // 認証が必要なルート
 // ====================
-Route::middleware('auth')->group(function () {
+Route::middleware('auth', 'verified')->group(function () {
 
     // マイページ
     Route::get('/mypage', [ProfileController::class, 'mypage'])->name('mypage');
@@ -56,9 +80,16 @@ Route::middleware('auth')->group(function () {
 
     // 購入
     Route::prefix('purchase')->name('purchase.')->group(function () {
-        Route::get('/{item}', [PurchaseController::class, 'buy'])->name('buy');
+        Route::get('/{item}/buy', [PurchaseController::class, 'buy'])->name('buy');
+        Route::get('/{item}/change', [PurchaseController::class, 'change'])->name('change');
+        Route::post('/{item}/updateAddress', [PurchaseController::class, 'updateAddress'])->name('updateAddress');
         Route::post('/{item}/store', [PurchaseController::class, 'store'])->name('store');
-        Route::get('/{item}/address', [PurchaseController::class, 'change'])->name('change');
-        Route::post('/{item}/address', [PurchaseController::class, 'updateAddress'])->name('updateAddress');
+
+        //Stripe関係の追加ルート
+        Route::post('/{item}/checkout', [PurchaseController::class, 'checkoutStore'])->name('checkout');
+        Route::get('/{item}/complete', [PurchaseController::class, 'completeStore'])->name('complete');
     });
+
 });
+
+

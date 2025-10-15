@@ -19,7 +19,7 @@ class CreateFavoritesTable extends Migration
             $table->foreignId('item_id')->constrained()->onDelete('cascade');
             $table->timestamps();
 
-            $table->unique(['user_id', 'item_id']); // 同じ商品に複数いいね防止
+            $table->unique(['user_id', 'item_id']);
         });
     }
 
