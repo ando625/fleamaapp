@@ -73,9 +73,4 @@ class FortifyServiceProvider extends ServiceProvider
 
         Fortify::createUsersUsing(CreateNewUser::class);
 
-
-        Event::listen(Registered::class, function ($event) {
-            $event->user->sendEmailVerificationNotification();
-        });
-    }
 }

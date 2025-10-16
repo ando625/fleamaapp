@@ -33,11 +33,12 @@ docker compose ps
 `docker-compose.yml` にすでに MailHog が定義されています。  
 そのため、以下のコマンドで MailHog も自動で立ち上がります。
 
+```
 php         Up
 mysql       Up
 phpmyadmin  Up
 mailhog     Up
-
+```
 
 
 ---
@@ -56,7 +57,8 @@ docker compose exec php bash
 composer install
 ```
 
-- Fortify もこのときに自動でインストールされます。ユーザーが手動で入れる必要はありません。
+- Fortify もこのときに自動でインストールされます。手動で入れる必要はありません。
+
 
 
 
@@ -93,7 +95,7 @@ DB_PASSWORD=laravel_pass
 - http://localhost:8025
 
 1. SMTPサーバー: localhost:1025
-2. Web UI: http://localhost:8025→ 送信された認証メールを確認可能
+2. Web UI: http://localhost:8025 → 送信された認証メールを確認可能
 
 
 ### Laravel 側の設定（.env）
@@ -143,29 +145,197 @@ php artisan storage:link
 
 ---
 
-## 4. PHPUnit テスト
+---
 
-### 4-1. GD 拡張をインストール
+## 🧪 テスト用データベースの準備
+
+### ⚠️ 注意
+本番データベースをテストで使うのは非常に危険です。
+安全にテストを実行するために、**テスト専用データベース（`demo_test`）** を作成します。
+
+---
+
+### MySQLコンテナに入る
+
+まず MySQL コンテナに接続します。
 
 ```bash
-apt-get update
-apt-get install -y libpng-dev
-docker-php-ext-install gd
+docker compose exec mysql bash
 ```
 
-### 4-2. PHP-FPM の再起動
+---
+
+### MySQL に root ユーザーでログイン
 
 ```bash
-exit
-docker compose restart php
+mysql -u root -p
 ```
 
-### 4-3. テスト実行
+パスワードは `docker-compose.yml` の中にある
+
+```yaml
+MYSQL_ROOT_PASSWORD: root
+```
+
+で設定した `root` を入力します。
+
+---
+
+### テスト用データベースを作成
+
+MySQL にログインできたら、以下を実行：
+
+```sql
+CREATE DATABASE demo_test;
+SHOW DATABASES;
+```
+
+`demo_test` が一覧に表示されればOKです
+
+---
+
+### database.php の設定確認
+
+`config/database.php` に以下のような **「mysql_test」設定** が追加されていることを確認してください。
+
+（このプロジェクトではすでに設定済みです。追記する必要はありません）
+
+```php
+'mysql_test' => [
+    'driver' => 'mysql',
+    'url' => env('DATABASE_URL'),
+    'host' => env('DB_HOST', '127.0.0.1'),
+    'port' => env('DB_PORT', '3306'),
+    'database' => 'demo_test',
+    'username' => 'root',
+    'password' => 'root',
+    'unix_socket' => env('DB_SOCKET', ''),
+    'charset' => 'utf8mb4',
+    'collation' => 'utf8mb4_unicode_ci',
+    'prefix' => '',
+    'prefix_indexes' => true,
+    'strict' => true,
+    'engine' => null,
+],
+```
+
+---
+
+### `.env.testing` の作成
+
+PHP コンテナに入って、`.env` をコピーして `.env.testing` を作成します。
 
 ```bash
 docker compose exec php bash
+cp .env .env.testing
+```
+
+`.env.testing` を開いて、上部とDB接続部分を以下のように編集します。
+
+```dotenv
+APP_NAME=Laravel
+APP_ENV=test
+APP_KEY=
+APP_DEBUG=true
+APP_URL=http://localhost
+
+DB_CONNECTION=mysql_test
+DB_HOST=mysql
+DB_PORT=3306
+DB_DATABASE=demo_test
+DB_USERNAME=root
+DB_PASSWORD=root
+```
+
+✅ `APP_ENV` は `test` に変更  
+✅ `APP_KEY` は一旦空欄にしておきます  
+
+---
+
+### テスト用アプリキーを生成
+そして、先ほど「空」にしたAPP_KEYに新たなテスト用のアプリケーションキーを加えるために以下のコマンドを実行します
+
+```bash
+php artisan key:generate --env=testing
+```
+
+その後、キャッシュをクリアして反映：
+
+```bash
+php artisan config:clear
+```
+
+---
+
+### テスト用マイグレーション実行
+
+```bash
+php artisan migrate --env=testing
+```
+
+これで `demo_test` にテーブルが作成されます
+
+---
+
+### PHPUnit の設定確認
+
+このプロジェクトには、すでに **テスト環境用の設定済み `phpunit.xml`** が用意されています。
+特に編集は不要です。内容を確認して、下記のように設定されていることを確認してください。
+
+```xml
+<php>
+    <server name="APP_ENV" value="testing"/>
+    <server name="BCRYPT_ROUNDS" value="4"/>
+    <server name="CACHE_DRIVER" value="array"/>
+    <server name="DB_CONNECTION" value="mysql_test"/>
+    <server name="DB_DATABASE" value="demo_test"/>
+    <server name="MAIL_MAILER" value="array"/>
+    <server name="QUEUE_CONNECTION" value="sync"/>
+    <server name="SESSION_DRIVER" value="array"/>
+    <server name="TELESCOPE_ENABLED" value="false"/>
+</php>
+```
+
+✅ `DB_CONNECTION="mysql_test"`
+✅ `DB_DATABASE="demo_test"`
+
+
+ この設定により、テスト実行時は  
+- 環境：`testing`  
+- 接続先DB：`mysql_test`  
+- 使用DB名：`demo_test`  
+が自動的に選ばれます。
+
+---
+
+### 設定確認コマンド
+
+もし設定が正しく反映されているか不安な場合は、  
+以下のコマンドで `.env.testing` と `phpunit.xml` の内容を確認できます。
+
+```bash
+docker compose exec php bash
+cat .env.testing | grep DB_
+grep DB_ phpunit.xml
+```
+
+結果が以下のようになっていればOKです
+
+```
+DB_CONNECTION=mysql_test
+DB_DATABASE=demo_test
+```
+---
+
+### これでテスト用DB環境の準備完了！
+
+今後は以下のコマンドでテストを実行できます。
+
+```bash
 php artisan test
 ```
+
+---
 
 ---
 
@@ -182,7 +352,7 @@ composer require stripe/stripe-php
 STRIPE_KEY=pk_test_********
 STRIPE_SECRET=sk_test_********
 ```
->  Stripe キーは Stripe にログインしダッシュボードで取得します。
+**Stripe キーは Stripe にログインしダッシュボードで取得します。**
 
 
 
@@ -193,12 +363,13 @@ STRIPE_SECRET=sk_test_********
 ・StripeのAPIキーは .env ファイルに保存したあと、config/services.php から呼び出すように設定しています。
 ・以下の設定が存在することを確認してください。
 
-
+```
 // config/services.php
 'stripe' => [
     'key' => env('STRIPE_KEY'),
     'secret' => env('STRIPE_SECRET'),
 ],
+```
 
 この設定により、コントローラ内で以下のようにStripeを利用できます。
 

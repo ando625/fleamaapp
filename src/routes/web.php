@@ -47,10 +47,7 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
     return back()->with('message', '認証メールを再送信しました');
-})->middleware('auth')->name('verification.send');
-
-//テスト時のみあとで消す
-//})->middleware(['auth', 'throttle:100,1'])->name('verification.send');
+})->middleware(['auth', 'throttle:100,1'])->name('verification.send');
 
 
 // ====================
