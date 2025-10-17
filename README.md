@@ -349,14 +349,12 @@ composer require stripe/stripe-php
 .env に Stripe の公開キー・秘密キーを設定
 
 ```
-STRIPE_KEY=pk_test_xxxxxxxxxxx
-STRIPE_SECRET=sk_test_xxxxxxxxx
+STRIPE_KEY=pk_test_xxxxxxxxx
+STRIPE_SECRET=sk_test_xxxxxxx
 ```
 GitHubのセキュリティのでAPIキーは載せられないのでご自身でStripeにログインし、
 コピーして貼り付けて設定してください。
 **Stripe キーは Stripe にログインしダッシュボードで取得します。**
-
-
 
 
 
