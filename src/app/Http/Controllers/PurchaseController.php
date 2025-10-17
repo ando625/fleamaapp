@@ -99,7 +99,7 @@ class PurchaseController extends Controller
         \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
 
         $successUrl = route('purchase.complete', $item->id);
-        $cancelUrl  = route('purchase.cancel', $item->id);
+        $cancelUrl  = route('items.index');
 
         $session = \Stripe\Checkout\Session::create([
             'payment_method_types' => ['card'],

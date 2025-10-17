@@ -8,8 +8,8 @@ use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Fortify\Fortify;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Support\Facades\Event;
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Support\Facades\RateLimiter;
 
 
 class FortifyServiceProvider extends ServiceProvider
@@ -43,6 +43,12 @@ class FortifyServiceProvider extends ServiceProvider
             return view('auth.login');
         });
 
+        // ログイン試行の制限を緩める消す
+        RateLimiter::for('login', function (Request $request) {
+            $email = (string) $request->email;
+            return Limit::perMinute(20)->by($email . $request->ip());
+        });
+
 
         Fortify::registerView(function () {
             return view('auth.register');
@@ -73,4 +79,5 @@ class FortifyServiceProvider extends ServiceProvider
 
         Fortify::createUsersUsing(CreateNewUser::class);
 
+    }
 }

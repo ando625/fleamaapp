@@ -110,6 +110,12 @@ class ProfileController extends Controller
             ]
         );
 
+        foreach (session()->all() as $key => $value) {
+            if (str_starts_with($key, 'purchase_address_')) {
+                session()->forget($key);
+            }
+        }
+
         return redirect()->route('mypage');
     }
 }

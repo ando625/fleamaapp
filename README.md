@@ -349,9 +349,11 @@ composer require stripe/stripe-php
 .env に Stripe の公開キー・秘密キーを設定
 
 ```
-STRIPE_KEY=pk_test_********
-STRIPE_SECRET=sk_test_********
+STRIPE_KEY=pk_test_xxxxxxxxxxx
+STRIPE_SECRET=sk_test_xxxxxxxxx
 ```
+GitHubのセキュリティのでAPIキーは載せられないのでご自身でStripeにログインし、
+コピーして貼り付けて設定してください。
 **Stripe キーは Stripe にログインしダッシュボードで取得します。**
 
 
@@ -380,6 +382,23 @@ STRIPE_SECRET=sk_test_********
 - カード払いは Stripe Checkout を利用
 - コンビニ払いは Stripe を通さず DB に即保存し、トップページにリダイレクト
 
+
+## 💳 Stripe 決済テストについて
+
+このアプリでは Stripe を使用して決済テストを行います。
+テストモード中は以下のカード番号を使用してください。
+
+| テスト内容 | カード番号 | 結果 |
+|-------------|-------------|------|
+| 通常の成功決済 | 4242 4242 4242 4242 | 成功 |
+| 失敗テスト（残高不足） | 4000 0000 0000 9995 | 決済失敗になります |
+
+- 有効期限：任意（例: 12/34）  
+- セキュリティコード：任意（例: 123）  
+- 郵便番号：任意（例: 12345）
+
+詳細は [Stripe公式ドキュメント](https://stripe.com/docs/testing) をご参照ください。
+
 ---
 
 ## 6. 購入処理の流れ
@@ -403,7 +422,7 @@ STRIPE_SECRET=sk_test_********
 
 ---
 
-## 8. phpMyAdmin
+## ７. phpMyAdmin
 
 - URL: `http://localhost:8080/`
 - ユーザー名・パスワードは `.env` と同じ
@@ -411,7 +430,7 @@ STRIPE_SECRET=sk_test_********
 
 ---
 
-## 9. 注意事項
+## 8. 注意事項
 
 - MySQL データは `.gitignore` により Git には含めない
 - Mac M1/M2 ARM 環境では MySQL と phpMyAdmin に `platform: linux/amd64` が指定済み
@@ -419,7 +438,7 @@ STRIPE_SECRET=sk_test_********
 
 ---
 
-## 10. 開発環境 URL
+## 9. 開発環境 URL
 
 - 開発環境: [http://localhost/]
 - phpMyAdmin: [http://localhost:8080/]

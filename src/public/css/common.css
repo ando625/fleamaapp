@@ -7,7 +7,7 @@
 .header-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -42,11 +42,12 @@
     border-radius: 4px;
     font-size: 14px;
     background-color: #fff;
-    color: #333;
+    color: #000000;
 }
 
 .search-input::placeholder {
-    color: #666;
+    color: #000000;
+    opacity: 1;
 }
 
 .search-input:focus {
@@ -90,10 +91,12 @@
 
 .nav-button {
     background-color: #FFFFFF;
+    width: 77px;
     border: 1px solid #000000;
     border-radius: 4px;
     color: #000000;
     padding: 8px 16px !important;
+    text-align: center;
 }
 
 

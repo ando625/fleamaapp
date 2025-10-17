@@ -150,7 +150,7 @@
                     @empty
                     <div class="comment-box">
                         <div class="comment-content-small">
-                            ここにコメントが入ります
+                            こちらにコメントが入ります
                         </div>
                     </div>
                     @endforelse
