@@ -254,8 +254,9 @@ DB_USERNAME=root
 DB_PASSWORD=root
 ```
 
-✅ `APP_ENV` は `test` に変更  
-✅ `APP_KEY` は一旦空欄にしておきます  
+✅ `APP_ENV` は `test` に変更
+✅ `APP_KEY` は一旦空欄にしておきます
+✅ `DB` も`demo_test`と`roo`に設定します
 
 ---
 
@@ -368,6 +369,8 @@ GitHubのセキュリティのでAPIキーは載せられないのでご自身�
 ##  Stripe 設定ファイルについて
 
 ・StripeのAPIキーは .env ファイルに保存したあと、config/services.php から呼び出すように設定しています。
+
+
 ・以下の設定が存在することを確認してください。
 
 ```
@@ -445,7 +448,8 @@ GitHubのセキュリティのでAPIキーは載せられないのでご自身�
 
 ## 9. 開発環境 URL
 
-- 開発環境: [http://localhost/]
-- phpMyAdmin: [http://localhost:8080/]
+- 開発環境: (http://localhost/)
+- phpMyAdmin: (http://localhost:8080/)
 
 ---
+git
