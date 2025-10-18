@@ -71,7 +71,6 @@ cp .env.example .env
 .env に以下を設定：
 
 ```
-
 DB_CONNECTION=mysql
 DB_HOST=mysql
 DB_PORT=3306
@@ -100,7 +99,8 @@ DB_PASSWORD=laravel_pass
 
 ### Laravel 側の設定（.env）
 
-```MAIL_MAILER=smtp
+```
+MAIL_MAILER=smtp
 MAIL_HOST=localhost
 MAIL_PORT=1025
 MAIL_USERNAME=null
@@ -147,7 +147,7 @@ php artisan storage:link
 
 ---
 
-## 🧪 テスト用データベースの準備
+## テスト用データベースの準備
 
 ### ⚠️ 注意
 本番データベースをテストで使うのは非常に危険です。
@@ -158,6 +158,7 @@ php artisan storage:link
 ### MySQLコンテナに入る
 
 まず MySQL コンテナに接続します。
+mysqlにcdで移動して↓
 
 ```bash
 docker compose exec mysql bash
@@ -219,10 +220,16 @@ SHOW DATABASES;
 ],
 ```
 
+
+その後退出
+```
+exit
+```
 ---
 
 ### `.env.testing` の作成
 
+cdでphpに移動し、
 PHP コンテナに入って、`.env` をコピーして `.env.testing` を作成します。
 
 ```bash

@@ -36,7 +36,7 @@
         };
         @endphp
 
-        @forelse ($itemsToShow as $item)
+        @foreach ($itemsToShow as $item)
         <div class="product-item">
             <a href="{{ route('items.show', $item->id) }}">
                 <div class="product-image">
@@ -53,11 +53,8 @@
                 <div class="product-name">{{ $item->name ?? '商品名' }}</div>
             </a>
         </div>
-        @empty
-        <div class="no-items">
-            <p>商品がありません</p>
-        </div>
-        @endforelse
+        @endforeach
+
     </div>
 </div>
 @endsection
