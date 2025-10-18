@@ -448,8 +448,8 @@ GitHubのセキュリティのでAPIキーは載せられないのでご自身�
 
 ## 9. 開発環境 URL
 
-- 開発環境: (http://localhost/)
-- phpMyAdmin: (http://localhost:8080/)
+- 開発環境: http://localhost/
+- phpMyAdmin: http://localhost:8080/
 
 ---
 git
