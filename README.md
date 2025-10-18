@@ -101,7 +101,7 @@ DB_PASSWORD=laravel_pass
 
 ```
 MAIL_MAILER=smtp
-MAIL_HOST=localhost
+MAIL_HOST=mailhog
 MAIL_PORT=1025
 MAIL_USERNAME=null
 MAIL_PASSWORD=null
@@ -255,7 +255,11 @@ DB_PASSWORD=root
 ```
 
 ✅ `APP_ENV` は `test` に変更
+
+
 ✅ `APP_KEY` は一旦空欄にしておきます
+
+
 ✅ `DB` も`demo_test`と`roo`に設定します
 
 ---
@@ -426,7 +430,15 @@ GitHubのセキュリティのでAPIキーは載せられないのでご自身�
 4. Stripe 画面はスキップされる (Stripe実行はなし)
 
 ---
+## トラブルシューティング（MailHogエラー）
 
+他プロジェクトでMailHogコンテナが残っている場合、以下のようなエラーが出ることがあります。
+その場合は、既存のMailHogを削除してから再度起動してください。
+
+```bash
+docker rm -f mailhog
+docker compose up -d --build
+```
 
 ---
 
@@ -452,4 +464,3 @@ GitHubのセキュリティのでAPIキーは載せられないのでご自身�
 - phpMyAdmin: http://localhost:8080/
 
 ---
-git
