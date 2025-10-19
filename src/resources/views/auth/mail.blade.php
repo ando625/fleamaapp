@@ -28,8 +28,6 @@
             <a href="http://localhost:8025" class="verification-button" target="_blank">
                 認証はこちらから
             </a>
-
-            <!-- 認証メール再送 -->
             <form method="POST" action="{{ route('verification.send') }}">
                 @csrf
                 <button type="submit" class="resend-link">

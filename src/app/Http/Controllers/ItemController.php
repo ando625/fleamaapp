@@ -71,7 +71,6 @@ class ItemController extends Controller
     {
         $user = Auth::user();
         $user->favorites()->detach($item->id);
-        // detach(): 中間テーブルから item_id を削除する
 
         return back();
     }

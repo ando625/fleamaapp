@@ -115,7 +115,7 @@
     @endguest
 </div>
 
-<!-- 複数選択対応のJS -->
+
 <script>
     let selectedCategories = [];
 
@@ -123,22 +123,17 @@
         const index = selectedCategories.indexOf(id);
 
         if (index > -1) {
-            // 既に選択済み → 解除
             selectedCategories.splice(index, 1);
             btn.classList.remove('active');
         } else {
-            // 選択
             selectedCategories.push(id);
             btn.classList.add('active');
         }
-
-        // hidden input に現在の選択IDをカンマ区切りでセット
         document.getElementById('category_ids').value = selectedCategories.join(',');
     }
 </script>
 
 <script>
-    // プレビュー処理
     function previewImage(event) {
         const input = event.target;
         const preview = document.getElementById('preview');
@@ -155,7 +150,6 @@
                 uploadButton.classList.add('below-image');
                 uploadButton.textContent = '画像を変更する';
             }
-
             reader.readAsDataURL(input.files[0]);
         }
     }

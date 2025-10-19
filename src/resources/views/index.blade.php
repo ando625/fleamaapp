@@ -6,7 +6,6 @@
 
 @section('content')
 <div class="content-wrapper">
-    <!-- 成功メッセージ -->
     @if (session('success'))
     <div class="alert-success-wrapper">
         <div class="alert alert-success">

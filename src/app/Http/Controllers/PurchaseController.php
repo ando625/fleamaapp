@@ -78,7 +78,6 @@ class PurchaseController extends Controller
 
         $paymentMethod = $request->input('payment_method', 'card');
 
-        // コンビニ支払い
         if ($paymentMethod === 'konbini') {
             Order::create([
                 'user_id' => $user->id,
@@ -95,7 +94,6 @@ class PurchaseController extends Controller
             return redirect('/')->with('success', 'コンビニ支払いで購入が完了しました！');
         }
 
-        // カード支払い（Stripe）
         \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
 
         $successUrl = route('purchase.complete', $item->id);

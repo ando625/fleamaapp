@@ -82,10 +82,8 @@
         const select = document.getElementById('payment_method');
         const display = document.getElementById('payment_value');
 
-        // 選択変更時にサイドバーに反映
         select.addEventListener('change', function() {
             const selectedText = select.options[select.selectedIndex].text;
-            // 「選択してください」の場合は「-」を表示
             display.textContent = select.value === '' ? '-' : selectedText;
         });
     });

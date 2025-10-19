@@ -366,24 +366,6 @@
     height: 50px;
 }
 
-@media (max-width: 1200px) {
-    .product-main {
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    .product-image,
-    .product-info {
-        width: 100%;
-        margin: 0;
-    }
-
-    .image-placeholder,
-    .product-image img {
-        height: 350px;
-    }
-}
-
 @media (max-width: 850px) and (min-width: 768px) {
     .product-main {
         flex-direction: column;

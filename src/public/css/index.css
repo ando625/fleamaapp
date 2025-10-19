@@ -162,11 +162,54 @@
     }
 }
 
-/* タブレット: 768px - 850px */
+@media (min-width: 1400px) {
+    .tab-navigation {
+        padding: 0 20px;
+        padding-left: 200px;
+        height: 60px;
+    }
+
+    .tab-link {
+        font-size: 18px;
+    }
+
+    .tab-link:first-child {
+        margin-right: 80px;
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(4, 290px);
+        gap: 32px;
+        padding: 20px 40px;
+    }
+
+    .product-item {
+        width: 290px;
+    }
+
+    .product-image {
+        width: 290px;
+        height: 290px;
+        margin-bottom: 8px;
+    }
+
+    .product-name {
+        font-size: 16px;
+    }
+
+    .sold-overlay {
+        top: 10px;
+        left: 10px;
+        padding: 10px 20px;
+        font-size: 20px;
+    }
+}
+
 @media (min-width: 768px) and (max-width: 850px) {
     .tab-navigation {
         padding: 0 16px;
         padding-left: 80px;
+        height: 50px;
     }
 
     .tab-link {
@@ -202,76 +245,5 @@
         left: 6px;
         padding: 4px 8px;
         font-size: 10px;
-    }
-}
-
-/* PC: 1400px - 1540px */
-@media (min-width: 1400px) and (max-width: 1540px) {
-    .tab-navigation {
-        padding: 0 20px;
-        padding-left: 200px;
-    }
-
-    .products-grid {
-        grid-template-columns: repeat(4, 290px);
-        gap: 32px;
-        padding: 20px 40px;
-    }
-}
-
-/* PC: 1541px以上 */
-@media (min-width: 1541px) {
-    .tab-navigation {
-        padding: 0 20px;
-        padding-left: 200px;
-    }
-
-    .products-grid {
-        grid-template-columns: repeat(4, 290px);
-        gap: 16px;
-        padding: 20px 40px;
-    }
-}
-
-/* モバイル対応 */
-@media (max-width: 767px) {
-    .tab-navigation {
-        padding: 0 12px;
-        padding-left: 50px;
-    }
-
-    .tab-link {
-        font-size: 12px;
-    }
-
-    .tab-link:first-child {
-        margin-right: 20px;
-    }
-
-    .products-grid {
-        grid-template-columns: repeat(2, 150px);
-        gap: 20px;
-        padding: 20px 12px;
-    }
-
-    .product-item {
-        width: 150px;
-    }
-
-    .product-image {
-        width: 150px;
-        height: 150px;
-        margin-bottom: 6px;
-    }
-
-    .product-name {
-        font-size: 12px;
-    }
-
-    .sold-overlay {
-        top: 6px;
-        left: 6px;
-        padding: 4px 8px;
-        font-size: 9px;
     }
 }

@@ -18,17 +18,14 @@
                     <img src="{{ asset('images/logo.svg') }}" alt="COACHTECH" class="logo-image" width="120">
                 </a>
             </div>
-            <!-- 検索ホーム -->
             <div class="search-container">
                 <form action="/" method="get">
                     <input type="text" name="q" class="search-input" placeholder="なにをお探しですか？" value="{{ $q ?? '' }}">
                 </form>
             </div>
-            <!-- ナビゲーション -->
             <nav class="header-nav">
                 <ul class="header-row">
                     @if (Auth::check())
-                    <!-- ログインしている時　 -->
                     <li class="header-nav__item">
                         <form action="/logout" method="post">
                             @csrf
@@ -42,7 +39,6 @@
                         <a href="/sell" class="header-nav__link nav-button">出品</a>
                     </li>
                     @else
-                    <!-- ログインしてない時　-->
                     <li class="header-nav__item">
                         <a href="/login" class="header-nav__link">ログイン</a>
                     </li>

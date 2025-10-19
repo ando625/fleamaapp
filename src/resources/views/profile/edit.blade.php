@@ -12,8 +12,6 @@
         <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data" class="profile-form">
             @csrf
             @method('PUT')
-
-            <!-- プロフィール画像 -->
             <div class="profile-image-section">
                 <div class="profile-image-wrapper">
                     <div class="profile-image-circle">
@@ -32,7 +30,6 @@
                 </div>
             </div>
 
-            <!-- ユーザー名 -->
             <div class="form-group">
                 <label for="name" class="form-label">ユーザー名</label>
                 <input type="text" id="name" name="name" class="form-input"
@@ -42,7 +39,6 @@
                 @enderror
             </div>
 
-            <!-- 郵便番号 -->
             <div class="form-group">
                 <label for="postal_code" class="form-label">郵便番号</label>
                 <input type="text" id="postal_code" name="postal_code" class="form-input"
@@ -52,7 +48,6 @@
                 @enderror
             </div>
 
-            <!-- 住所 -->
             <div class="form-group">
                 <label for="address" class="form-label">住所</label>
                 <input type="text" id="address" name="address" class="form-input"
@@ -62,7 +57,6 @@
                 @enderror
             </div>
 
-            <!-- 建物名 -->
             <div class="form-group">
                 <label for="building" class="form-label">建物名</label>
                 <input type="text" id="building" name="building" class="form-input"
@@ -72,7 +66,6 @@
                 @enderror
             </div>
 
-            <!-- 更新ボタン -->
             <div class="form-group">
                 <button type="submit" class="update-btn">更新する</button>
             </div>
@@ -81,7 +74,6 @@
 </div>
 
 <script>
-// 画像プレビュー機能
 document.getElementById('profile_image').addEventListener('change', function(e) {
     const file = e.target.files[0];
     const profileText = document.querySelector('.profile-image-text');
@@ -97,7 +89,6 @@ document.getElementById('profile_image').addEventListener('change', function(e) 
     }
 });
 
-// 初期状態で画像があるかチェック
 document.addEventListener('DOMContentLoaded', function() {
     const profileImg = document.getElementById('profile-preview');
     const profileText = document.querySelector('.profile-image-text');
