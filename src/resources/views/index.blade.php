@@ -21,14 +21,12 @@
     </div>
     @endif
 
-
     <div class="full-width-line">
         <nav class="tab-navigation">
             <a href="{{ route('items.index', ['tab' => 'recommend']) }}" class="tab-link {{ $tab === 'recommend' ? 'active' : '' }}">おすすめ</a>
             <a href="{{ route('items.index', ['tab' => 'mylist']) }}" class="tab-link {{ $tab === 'mylist' ? 'active' : '' }}">マイリスト</a>
         </nav>
     </div>
-
     <div class="products-grid">
         @foreach($items as $item)
         <div class="product-item">

@@ -10,7 +10,6 @@ use App\Models\Item;
 
 class ProfileController extends Controller
 {
-    //マイページ表示
     public function mypage(Request $request)
     {
         $user = Auth::user();
@@ -24,7 +23,6 @@ class ProfileController extends Controller
         return view('profile.profile', compact('user', 'listings', 'purchases', 'tab'));
     }
 
-    //出品商品タブ（画面切り替え）
     public function listings()
     {
         $user = Auth::user();
@@ -34,7 +32,6 @@ class ProfileController extends Controller
         return view('profile.profile', compact('user', 'tab', 'listings'));
     }
 
-    //購入商品タブ（画面切り替え）
     public function purchases()
     {
         $user = Auth::user();
@@ -44,7 +41,6 @@ class ProfileController extends Controller
         return view('profile.profile', compact('user', 'tab', 'purchases'));
     }
 
-    // 新規プロフィール作成フォーム表示
     public function create()
     {
         $user = Auth::user();
@@ -52,7 +48,6 @@ class ProfileController extends Controller
         return view('profile.create', compact('user'));
     }
 
-    //新規プロフィール保存
     public function store(ProfileRequest $request)
     {
         $user = Auth::user();
@@ -77,7 +72,6 @@ class ProfileController extends Controller
         return redirect('/');
     }
 
-    //既存プロフィール編集フォーム表示
     public function edit()
     {
         $user = Auth::user();
@@ -87,7 +81,6 @@ class ProfileController extends Controller
         return view('profile.edit', compact('user', 'profile'));
     }
 
-    //既存プロフィール更新
     public function update(ProfileRequest $request)
     {
         $user = Auth::user();

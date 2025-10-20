@@ -11,7 +11,6 @@
     @csrf
     <div class="purchase-container">
         <div class="purchase-content">
-            <!-- 商品情報セクション -->
             <div class="product-section">
                 <div class="product-image">
                     <div class="image-placeholder">
@@ -25,8 +24,6 @@
             </div>
 
             <hr class="divider">
-
-            <!-- 支払い方法セクション -->
             <div class="payment-section">
                 <h3 class="section-title">支払い方法</h3>
                 <div class="payment-select">
@@ -40,10 +37,7 @@
                     @enderror
                 </div>
             </div>
-
             <hr class="divider">
-
-            <!-- 配送先セクション -->
             <div class="delivery-section">
                 <div class="delivery-header">
                     <h3 class="section-title">配送先</h3>
@@ -55,8 +49,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- サイドバー -->
         <div class="purchase-sidebar">
             <div class="price-summary">
                 <div class="price-row">
@@ -64,14 +56,12 @@
                     <span class="price-value">¥{{ number_format($item->price) }}</span>
                 </div>
             </div>
-
             <div class="payment-method-summary">
                 <div class="payment-row">
                     <span class="payment-label">支払い方法</span>
                     <span class="payment-value" id="payment_value">-</span>
                 </div>
             </div>
-
             <button class="purchase-button" type="submit">購入する</button>
         </div>
     </div>

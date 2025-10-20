@@ -1,22 +1,16 @@
 @extends('layouts.app')
 
-@section('content')
+@section('css')
 <link rel="stylesheet" href="{{ asset('css/listing.css') }}">
+@endsection
 
+
+@section('content')
 <div class="container">
     <h1 class="page-title">商品の出品</h1>
 
-    @if (session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-    @endif
-
-    @auth
     <form action="/sell" method="POST" enctype="multipart/form-data">
         @csrf
-
-        <!-- 商品画像 -->
         <div class="form-section">
             <label class="section-title no-border">商品画像</label>
             <div class="image-upload-area">
@@ -24,7 +18,6 @@
                 <button type="button" class="btn-upload" onclick="document.getElementById('product-image').click()">
                     画像を選択する
                 </button>
-                <!--プレビュー表示エリア-->
                 <div id="image-preview">
                     <img id="preview" src="" alt="">
                 </div>
@@ -34,12 +27,8 @@
                 @enderror
             </div>
         </div>
-
-        <!-- 商品の詳細 -->
         <div class="form-section">
             <h2 class="section-title big-title">商品の詳細</h2>
-
-            <!-- カテゴリー -->
             <div class="form-group">
                 <label class="form-label">カテゴリー</label>
                 <input type="hidden" name="category_id" id="category_ids">
@@ -55,8 +44,6 @@
                 <p class="error-message">{{ $message }}</p>
                 @enderror
             </div>
-
-            <!-- 商品の状態 -->
             <div class="form-group">
                 <label class="form-label">商品の状態</label>
                 <select name="condition_id" class="form-select">
@@ -71,8 +58,6 @@
                 @enderror
             </div>
         </div>
-
-        <!-- 商品名と説明 -->
         <div class="form-section">
             <h2 class="section-title big-title">商品名と説明</h2>
 
@@ -99,20 +84,14 @@
 
             <div class="form-group">
                 <label class="form-label">販売価格</label>
-                    <input type="text" name="price" class="form-input" placeholder="¥">
+                <input type="text" name="price" class="form-input" placeholder="¥">
                 @error('price')
                 <p class="error-message">{{ $message }}</p>
                 @enderror
             </div>
         </div>
-
         <button type="submit" class="btn-submit">出品する</button>
     </form>
-    @endauth
-
-    @guest
-    <p>出品するには<a href="{{route('login')}}">ログイン</a>してください</p>
-    @endguest
 </div>
 
 

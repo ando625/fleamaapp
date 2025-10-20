@@ -18,7 +18,6 @@ class FortifyServiceProvider extends ServiceProvider
 
     public function register()
     {
-
         $this->app->singleton(
             \Laravel\Fortify\Contracts\LoginResponse::class,
             \App\Actions\Fortify\LoginResponse::class
@@ -30,13 +29,9 @@ class FortifyServiceProvider extends ServiceProvider
         );
     }
 
-    // ---------------------------------------------------
-    // boot() : ログイン・登録処理の流れを定義
-    // ---------------------------------------------------
     public function boot()
 
     {
-
         Fortify::loginView(function () {
             return view('auth.login');
         });
@@ -66,7 +61,6 @@ class FortifyServiceProvider extends ServiceProvider
 
             return null;
         });
-
 
         Fortify::createUsersUsing(CreateNewUser::class);
 

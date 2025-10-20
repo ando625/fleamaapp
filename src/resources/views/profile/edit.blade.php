@@ -65,7 +65,6 @@
                     <span class="error-message">{{ $message }}</span>
                 @enderror
             </div>
-
             <div class="form-group">
                 <button type="submit" class="update-btn">更新する</button>
             </div>

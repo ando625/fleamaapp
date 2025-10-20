@@ -6,7 +6,6 @@
 
 @section('content')
 <div class="content-wrapper">
-    <!-- ユーザープロフィール部分 -->
     <div class="profile-section">
         <div class="profile-avatar">
             <img src="{{ $user->profile?->profile_image ? asset('storage/' . $user->profile->profile_image) : asset('images/default-avatar.png') }}">
@@ -20,14 +19,10 @@
             </a>
         </div>
     </div>
-
-    <!-- タブナビゲーション -->
     <nav class="tab-navigation">
         <a href="{{ route('mypage', ['page' => 'sell']) }}" class="tab-link {{ $tab === 'sell' ? 'active' : '' }}">出品した商品</a>
         <a href="{{ route('mypage', ['page' => 'buy']) }}" class="tab-link {{ $tab === 'buy' ? 'active' : '' }}">購入した商品</a>
     </nav>
-
-    <!-- 商品グリッド -->
     <div class="products-grid">
         @php
         $itemsToShow = match($tab) {
@@ -54,7 +49,6 @@
             </a>
         </div>
         @endforeach
-
     </div>
 </div>
 @endsection

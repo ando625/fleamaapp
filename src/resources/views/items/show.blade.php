@@ -7,20 +7,15 @@
 @section('content')
 <div class="product-detail-container">
     <div class="product-main">
-        <!-- 商品画像 -->
         <div class="product-image">
             <div class="image-placeholder">
                 <img src="{{ asset('storage/'.$item->item_path) }}" alt="{{ $item->name }}">
             </div>
         </div>
-
-        <!-- 商品情報 -->
         <div class="product-info">
             <h1 class="product-title">{{ $item->name }}</h1>
             <div class="brand-name">{{ $item->brand ?: 'ブランドなし' }}</div>
             <div class="price">¥{{ number_format($item->price)}} <span class="tax-included">(税込)</span></div>
-
-            <!-- 評価とコメント数 -->
             <div class="rating-section">
                 <div class="rating">
                     @auth
@@ -80,15 +75,12 @@
                 <button class="purchase-btn" type="submit">購入手続きへ</button>
             </form>
 
-            <!-- 商品説明 -->
             <div class="product-description">
                 <h3>商品説明</h3>
                 <div class="description-content">
                     <p>{{ $item->description }}</p>
                 </div>
             </div>
-
-            <!-- 商品情報 -->
             <div class="product-details">
                 <h3>商品の情報</h3>
                 <div class="details-grid">
@@ -106,12 +98,8 @@
                     </div>
                 </div>
             </div>
-
-            <!-- コメントセクション -->
             <div class="comments-section">
                 <h3 class="comments-title">コメント({{ $item->comments->count() }})</h3>
-
-                <!-- ユーザー表示 -->
                 <div class="comment-header">
                     <div class="comment-avatar">
                         @auth
@@ -130,8 +118,6 @@
                         @endauth
                     </span>
                 </div>
-
-                <!-- コメント内容表示 -->
                 <div class="all-comments">
                     @forelse($item->comments as $comment)
                     <div class="comment-box">
@@ -153,8 +139,6 @@
                     </div>
                     @endforelse
                 </div>
-
-                <!-- コメント投稿フォーム -->
                 <div class="comment-form">
                     <h4>商品へのコメント</h4>
                     <form action="{{ route('items.comment', $item) }}" method="POST">

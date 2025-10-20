@@ -21,10 +21,8 @@
     <main class="main">
         <div class="register-container">
             <h1 class="register-title">会員登録</h1>
-
             <form action="/register" method="POST" class="register-form">
                 @csrf
-
                 <div class="form-group">
                     <label for="username" class="form-label">ユーザー名</label>
                     <input
@@ -37,7 +35,6 @@
                     <span class="error-message">{{ $message }}</span>
                     @enderror
                 </div>
-
                 <div class="form-group">
                     <label for="email" class="form-label">メールアドレス</label>
                     <input
@@ -52,7 +49,6 @@
                     <span class="error-message">{{ $message }}</span>
                     @enderror
                 </div>
-
                 <div class="form-group">
                     <label for="password" class="form-label">パスワード</label>
                     <input
@@ -64,7 +60,6 @@
                     <span class="error-message">{{ $message }}</span>
                     @enderror
                 </div>
-
                 <div class="form-group">
                     <label for="password_confirmation" class="form-label">確認用パスワード</label>
                     <input
@@ -76,10 +71,8 @@
                     <span class="error-message">{{ $message }}</span>
                     @enderror
                 </div>
-
                 <button type="submit" class="register-button">登録する</button>
             </form>
-
             <div class="login-link-container">
                 <a href="/login" class="login-link">ログインはこちら</a>
             </div>

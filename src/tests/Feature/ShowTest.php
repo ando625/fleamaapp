@@ -63,7 +63,6 @@ class ShowTest extends TestCase
         $response->assertSee($category2->name);
         $response->assertSee('ロン');
         $response->assertSee('何製？');
-
         $this->assertEquals(1, $item->favorite_count);
         $this->assertEquals(1, $item->comment_count);
 

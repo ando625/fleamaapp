@@ -11,7 +11,6 @@ use App\Models\Category;
 
 class ItemController extends Controller
 {
-    // トップページ（おすすめ or マイリスト）表示
     public function index(Request $request)
     {
         $tab = $request->input('tab', 'recommend');
@@ -56,7 +55,6 @@ class ItemController extends Controller
         return view('index', compact('items', 'tab', 'q'));
     }
 
-    // お気に入り追加処理
     public function favorite(Request $request, Item $item)
     {
         $user = Auth::user();
@@ -66,7 +64,6 @@ class ItemController extends Controller
     }
 
 
-    // お気に入り削除処理
     public function unfavorite(Request $request, Item $item)
     {
         $user = Auth::user();
@@ -76,7 +73,7 @@ class ItemController extends Controller
     }
 
 
-    // 商品詳細画面表示
+
     public function show(Item $item)
     {
         $item = Item::with(['user', 'categories', 'condition', 'comments.user'])
@@ -85,7 +82,6 @@ class ItemController extends Controller
         return view('items.show', compact('item'));
     }
 
-    // コメント保存
     public function storeComment(CommentRequest $request, Item $item)
     {
         $validated = $request->validated();
@@ -99,7 +95,6 @@ class ItemController extends Controller
     }
 
 
-    // 出品画面表示
     public function listing()
     {
         $categories = Category::orderBy('id')->get();
@@ -108,7 +103,6 @@ class ItemController extends Controller
     }
 
 
-    //商品出品
     public function storeListing(ExhibitionRequest $request)
     {
 

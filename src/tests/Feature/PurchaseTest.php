@@ -35,6 +35,14 @@ class PurchaseTest extends TestCase
             'payment_method' => 'convenience_store',
         ]);
 
+        $order = Order::where('user_id', $user->id)
+            ->where('item_id', $item->id)
+            ->first();
+
+        $this->assertNotNull($order, 'Orderモデルにデータが保存されていません');
+        $this->assertInstanceOf(Order::class, $order);
+        $this->assertEquals('convenience_store', $order->payment_method);
+
         $this->assertDatabaseHas('items', [
             'id' => $item->id,
             'status' => 'sold',

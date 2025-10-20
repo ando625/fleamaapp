@@ -13,7 +13,6 @@ use Stripe\Stripe;
 
 class PurchaseController extends Controller
 {
-   // 購入画面表示
     public function buy(Item $item)
     {
         $user = Auth::user();
@@ -40,7 +39,6 @@ class PurchaseController extends Controller
         return view('purchase.buy', compact('item', 'addressData', 'profile'));
     }
 
-    // 住所変更画面表示
     public function change(Item $item)
     {
         $user = Auth::user();
@@ -59,7 +57,6 @@ class PurchaseController extends Controller
         return view('purchase.change', compact('addressData', 'item'));
     }
 
-    // 住所変更処理
     public function updateAddress(AddressRequest $request, Item $item)
     {
         $validated = $request->validated();
@@ -70,7 +67,6 @@ class PurchaseController extends Controller
         return redirect()->route('purchase.buy', $item->id);
     }
 
-    // 購入処理
     public function checkoutStore(Item $item, PurchaseRequest $request)
     {
         $user = Auth::user();
@@ -117,7 +113,6 @@ class PurchaseController extends Controller
         return redirect($session->url);
     }
 
-    // 購入完了（Stripeリダイレクト用）
     public function completeStore(Item $item, Request $request)
     {
         $user = Auth::user();
