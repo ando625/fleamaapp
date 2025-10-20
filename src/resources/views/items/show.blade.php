@@ -143,7 +143,7 @@
                     <h4>商品へのコメント</h4>
                     <form action="{{ route('items.comment', $item) }}" method="POST">
                         @csrf
-                        <textarea name="content" placeholder="コメントを入力してください..." rows="6" value="{{ old('content') }}"></textarea>
+                        <textarea name="content" placeholder="コメントを入力してください..." rows="6">{{ old('content') }}</textarea>
                         @error('content')
                         <p class="error-message">{{ $message }}</p>
                         @enderror

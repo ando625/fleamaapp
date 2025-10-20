@@ -63,20 +63,20 @@
 
             <div class="form-group">
                 <label class="form-label">商品名</label>
-                <input type="text" name="name" class="form-input" value="">
+                <input type="text" name="name" class="form-input" value="{{ old('name') }}">
                 @error('name')
-                <p class="error-message">{{ $message }}</p>
+                <p class=" error-message">{{ $message }}</p>
                 @enderror
             </div>
 
             <div class="form-group">
                 <label class="form-label">ブランド名</label>
-                <input type="text" name="brand" class="form-input" value="">
+                <input type="text" name="brand" class="form-input" value="{{ old('brand') }}">
             </div>
 
             <div class="form-group">
                 <label class="form-label">商品の説明</label>
-                <textarea name="description" class="form-textarea" rows="6"></textarea>
+                <textarea name="description" class="form-textarea" rows="6">{{ old('description') }}</textarea>
                 @error('description')
                 <p class="error-message">{{ $message }}</p>
                 @enderror
@@ -84,7 +84,7 @@
 
             <div class="form-group">
                 <label class="form-label">販売価格</label>
-                <input type="text" name="price" class="form-input" placeholder="¥">
+                <input type="text" name="price" class="form-input" placeholder="¥" value="{{ old('price') }}">
                 @error('price')
                 <p class="error-message">{{ $message }}</p>
                 @enderror
