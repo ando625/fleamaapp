@@ -134,7 +134,7 @@
                     @empty
                     <div class="comment-box">
                         <div class="comment-content-small">
-                            こちらにコメントが入ります
+                            こちらにコメントが入ります。
                         </div>
                     </div>
                     @endforelse
@@ -143,7 +143,7 @@
                     <h4>商品へのコメント</h4>
                     <form action="{{ route('items.comment', $item) }}" method="POST">
                         @csrf
-                        <textarea name="content" placeholder="コメントを入力してください..." rows="6">{{ old('content') }}</textarea>
+                        <textarea name="content" rows="10">{{ old('content') }}</textarea>
                         @error('content')
                         <p class="error-message">{{ $message }}</p>
                         @enderror
