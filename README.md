@@ -478,7 +478,6 @@ docker compose up -d --build
 メールアドレス: admin@example.com
 パスワード: password123
 パスワード確認: password123
-
 ```
 ⚠️補足
 - 上記は テスト用の例 です。
