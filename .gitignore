@@ -1,0 +1,8 @@
+# docker/mysqlのデータ全体を無視
+docker/mysql/data/
+
+# バックアップファイルも無視
+*.tar.gz
+
+# .DS_StoreとかMac特有のゴミも無視
+.DS_Store
