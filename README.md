@@ -1,8 +1,8 @@
 # Flema アプリケーション環境構築・操作手順
 
-このリポジトリは **Docker + Laravel 8 + MySQL + Stripe + Fortify** 環境で動作する Web アプリです。
+このリポジトリは **Docker + Laravel 8 + MySQL + Stripe + Fortify** 環境で動作する Web アプリです。  
 ここでは **環境構築・テスト・メール認証・Stripe 決済(カード支払い）仕組み** を含めて順を追って説明します。
-このアプリでは **新規登録後のメール認証** を MailHog を使って確認できます。
+このアプリでは **新規登録後のメール認証** を MailHog を使って確認できます。  
 認証が完了するとプロフィール登録画面に遷移します。
 
 ---
@@ -499,12 +499,7 @@ php artisan migrate:fresh --seed
 
 ---
 
-## 10. ED図
-![ER図](./docs/ED.png)
-
-
----
-## 11. 開発環境 URL
+## １０. 開発環境 URL
 
 - 開発環境: http://localhost/
 - phpMyAdmin: http://localhost:8080/

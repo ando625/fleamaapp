@@ -47,11 +47,11 @@
                         </button>
                     </form>
                     @else
-                    <a href="{{ route('login') }}" class="star" title="ログインするとお気に入りに追加できます">
+                    <span class="star" title="ログインするとお気に入りに追加できます">
                         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="none" stroke="#999999" stroke-width="2" />
                         </svg>
-                    </a>
+                    </span>
                     @endauth
                     <div class="rating-number">{{ $item->favoritedUsers()->count() }}</div>
                 </div>
@@ -100,7 +100,24 @@
             </div>
             <div class="comments-section">
                 <h3 class="comments-title">コメント({{ $item->comments->count() }})</h3>
-                @if($item->comments->count() > 0)
+                <div class="comment-header">
+                    <div class="comment-avatar">
+                        @auth
+                        @if(Auth::user()->profile?->profile_image)
+                        <img src="{{ Auth::user()->profile?->profile_image ? asset('storage/' . Auth::user()->profile->profile_image) : asset('images/default-avatar.png') }}">
+                        @endif
+                        @else
+                        <div class="comment-avatar"></div>
+                        @endauth
+                    </div>
+                    <span class="comment-author">
+                        @auth
+                        {{ Auth::user()->name }}
+                        @else
+                        admin
+                        @endauth
+                    </span>
+                </div>
                 <div class="all-comments">
                     @forelse($item->comments as $comment)
                     <div class="comment-box">
@@ -116,11 +133,12 @@
                     </div>
                     @empty
                     <div class="comment-box">
-                        <div class="comment-content-small"></div>
+                        <div class="comment-content-small">
+                            こちらにコメントが入ります。
+                        </div>
                     </div>
                     @endforelse
                 </div>
-                @endif
                 <div class="comment-form">
                     <h4>商品へのコメント</h4>
                     <form action="{{ route('items.comment', $item) }}" method="POST">
@@ -132,7 +150,7 @@
                         @auth
                         <button type="submit" class="comment-submit-btn">コメントを送信する</button>
                         @else
-                        <a href="{{ route('login') }}" class="comment-submit-btn">コメントを送信する</a>
+                        <button type="button" class="comment-submit-btn">コメントを送信する</button>
                         @endauth
                     </form>
                 </div>

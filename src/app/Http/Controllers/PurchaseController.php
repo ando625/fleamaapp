@@ -16,6 +16,7 @@ class PurchaseController extends Controller
     public function buy(Item $item)
     {
         $user = Auth::user();
+        if (!$user) return redirect()->route('login');
 
         if ($item->status == 'sold') {
             return redirect()->route('items.index');
@@ -23,8 +24,6 @@ class PurchaseController extends Controller
 
         $profile = $user->profile;
 
-        //フリマアプリで 1回に1商品しか購入できないならこっち今のは複数購入の場合
-        //$sessionKey = "purchase_address";
         $sessionKey = "purchase_address_{$item->id}";
 
         if (!session()->has($sessionKey)) {
@@ -43,11 +42,10 @@ class PurchaseController extends Controller
     public function change(Item $item)
     {
         $user = Auth::user();
+        if (!$user) return redirect()->route('login');
 
         $profile = $user->profile;
 
-        //フリマアプリで 1回に1商品しか購入できないならこっち今のは複数購入の場合
-        //$sessionKey = "purchase_address";
         $sessionKey = "purchase_address_{$item->id}";
 
         $addressData = session($sessionKey, [
@@ -138,4 +136,6 @@ class PurchaseController extends Controller
 
         return redirect('/')->with('success', 'カード支払いで購入が完了しました！');
     }
+
+
 }
