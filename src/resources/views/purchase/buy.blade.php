@@ -47,6 +47,9 @@
                     <p class="postal-code">〒 {{ $addressData['postal_code'] ?? $profile->postal_code }}</p>
                     <p class="address">{{ $addressData['address'] ?? '' }}{{ $addressData['building'] ?? '' }}</p>
                 </div>
+                <input type="hidden" name="postal_code" value="{{ $addressData['postal_code'] ?? $profile->postal_code }}">
+                <input type="hidden" name="address" value="{{ $addressData['address'] ?? $profile->address }}">
+                <input type="hidden" name="building" value="{{ $addressData['building'] ?? $profile->building ?? '' }}">
             </div>
         </div>
         <div class="purchase-sidebar">

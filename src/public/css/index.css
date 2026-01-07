@@ -22,6 +22,7 @@
     padding-left: 200px;
     height: 60px;
     margin-bottom: -12px;
+    list-style: none;
 }
 
 .tab-link {
@@ -52,6 +53,7 @@
     margin: 0 auto;
     justify-content: center;
     margin-top: 20px;
+    list-style: none;
 }
 
 .product-item {

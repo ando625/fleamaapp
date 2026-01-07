@@ -26,12 +26,15 @@ class ItemController extends Controller
 
         if ($tab === 'mylist') {
             if (auth()->check()) {
-                $query = Auth::user()->favorites()
+
+                $user = Auth::user();
+                $query = $user->favorites()
                     ->with(['user', 'categories', 'condition'])
-                    ->orderBy('favorites.created_at', 'desc');
+                    ->orderBy('favorites.created_at', 'desc')
+                    ->where('items.user_id', '!=', $user->id);
 
                 if (!empty($q)) {
-                    $query->where('name', 'like', "%{$q}%");
+                    $query->where('items.name', 'like', "%{$q}%");
                 }
 
                 $items = $query->get();

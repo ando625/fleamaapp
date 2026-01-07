@@ -20,10 +20,16 @@
         </div>
     </div>
     <nav class="tab-navigation">
-        <a href="{{ route('mypage', ['page' => 'sell']) }}" class="tab-link {{ $tab === 'sell' ? 'active' : '' }}">出品した商品</a>
-        <a href="{{ route('mypage', ['page' => 'buy']) }}" class="tab-link {{ $tab === 'buy' ? 'active' : '' }}">購入した商品</a>
+        <ul>
+            <li>
+                <a href="{{ route('mypage', ['page' => 'sell']) }}" class="tab-link {{ $tab === 'sell' ? 'active' : '' }}">出品した商品</a>
+            </li>
+            <li>
+                <a href="{{ route('mypage', ['page' => 'buy']) }}" class="tab-link {{ $tab === 'buy' ? 'active' : '' }}">購入した商品</a>
+            </li>
+        </ul>
     </nav>
-    <div class="products-grid">
+    <ul class="products-grid">
         @php
         $itemsToShow = match($tab) {
         'sell' => $listings,
@@ -32,7 +38,7 @@
         @endphp
 
         @foreach ($itemsToShow as $item)
-        <div class="product-item">
+        <li class="product-item">
             <a href="{{ route('items.show', $item->id) }}">
                 <div class="product-image">
                     @if($item->item_path)
@@ -47,8 +53,8 @@
                 </div>
                 <div class="product-name">{{ $item->name ?? '商品名' }}</div>
             </a>
-        </div>
+        </li>
         @endforeach
-    </div>
+    </ul>
 </div>
 @endsection
