@@ -1,4 +1,3 @@
-
 .product-detail-container {
     max-width: 1200px;
     margin: 40px auto 0;
@@ -56,7 +55,6 @@
     margin: 0 auto;
 }
 
-
 .product-title {
     font-size: 40px;
     font-weight: bold;
@@ -100,7 +98,6 @@
     gap: 4px;
 }
 
-
 .star {
     background: none;
     border: none;
@@ -117,7 +114,6 @@
     width: 50px;
     height: 50px;
 }
-
 
 .rating-section {
     display: flex;
@@ -235,53 +231,7 @@
     color: #5F5F5F;
 }
 
-.comment {
-    margin-bottom: 25px;
-    padding: 20px;
-}
 
-.comment-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 15px;
-}
-
-.comment-avatar {
-    width: 55px;
-    height: 55px;
-    border-radius: 50%;
-    background-color: #D9D9D9;
-    overflow: hidden;
-}
-.comment-avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-.comment-avatar:empty {
-    background-color: #D9D9D9;
-}
-
-.comment-avatar img[src*="default-avatar"] {
-    display: none;
-}
-
-.comment-author {
-    font-weight: bold;
-    color: #000000;
-    font-size: 25px;
-}
-
-.comment-content {
-    background-color: #E5E5E5;
-    padding: 15px 18px;
-    border-radius: 5px;
-    line-height: 1.6;
-    font-size: 14px;
-}
 
 .all-comments {
     display: flex;
@@ -289,13 +239,9 @@
     gap: 15px;
 }
 
-
 .comment-box {
-    background-color: #E5E5E5;
-    padding: 12px 15px;
-    border-radius: 8px;
+    padding: 12px 0;
 }
-
 
 .comment-header-small {
     display: flex;
@@ -304,31 +250,30 @@
     margin-bottom: 8px;
 }
 
-.comment-avatar-small {
-    width: 30px;
-    height: 30px;
+.comment-avatar-small,
+.comment-header-small img {
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
+    object-fit: cover;
     background-color: #D9D9D9;
 }
 
-.comment-header-small img {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
 .comment-author-small {
-    font-size: 12px;
+    font-size: 20px;
     font-weight: bold;
     color: #333;
+    margin-left: 20px;
 }
 
 .comment-content-small {
+    background-color: #E5E5E5;
+    padding: 12px 15px;
+    border-radius: 6px;
     font-size: 14px;
     line-height: 1.4;
     color: #000;
-    word-wrap: break-word;
+    margin-top: 20px;
 }
 
 .comment-form h4 {
@@ -347,7 +292,6 @@
     margin-bottom: 15px;
 }
 
-
 .error-message {
     color: #ff4444;
     font-size: 16px;
@@ -364,6 +308,13 @@
     cursor: pointer;
     width: 100%;
     height: 50px;
+}
+
+.comment-submit-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
 }
 
 @media (max-width: 850px) and (min-width: 768px) {
