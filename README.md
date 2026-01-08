@@ -506,7 +506,7 @@ php artisan migrate:fresh --seed
 ---
 ## 10. ED図
 
-[!ED図](docs/ED.png)
+![ED図](./docs/ED.png)
 
 ---
 
