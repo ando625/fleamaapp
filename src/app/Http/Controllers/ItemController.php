@@ -55,6 +55,7 @@ class ItemController extends Controller
         return view('index', compact('items', 'tab', 'q'));
     }
 
+    // お気に入り
     public function favorite(Request $request, Item $item)
     {
         $user = Auth::user();
@@ -74,6 +75,7 @@ class ItemController extends Controller
 
 
 
+    // 商品詳細表示画面
     public function show(Item $item)
     {
         $item = Item::with(['user', 'categories', 'condition', 'comments.user'])
@@ -82,6 +84,7 @@ class ItemController extends Controller
         return view('items.show', compact('item'));
     }
 
+    //コメントを保存
     public function storeComment(CommentRequest $request, Item $item)
     {
         $validated = $request->validated();
@@ -94,7 +97,7 @@ class ItemController extends Controller
         return redirect()->route('items.show', $item);
     }
 
-
+    //出品画面表示
     public function listing()
     {
         $categories = Category::orderBy('id')->get();
@@ -102,7 +105,7 @@ class ItemController extends Controller
         return view('listing', compact('categories'));
     }
 
-
+    //出品商品保存
     public function storeListing(ExhibitionRequest $request)
     {
 

@@ -11,6 +11,10 @@ use App\Models\Item;
 use App\Models\Profile;
 use App\Models\Order;
 use App\Models\Comment;
+use App\Models\Review;
+use App\Models\Message;
+
+
 
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -71,5 +75,49 @@ class User extends Authenticatable implements MustVerifyEmail
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    //自分が購入者の取引
+    public function buyingTransactions()
+    {
+        return $this->hasMany(Transaction::class, 'buyer_id');
+    }
+
+    //自分が出品者の取引
+    public function sellingTransactions()
+    {
+        return $this->hasMany(Transaction::class, 'seller_id');
+    }
+
+    public function sentMessages()
+    {
+        return $this->hasMany(Message::class, 'sender_id');
+    }
+
+    //自分がした評価
+    public function reviewsGiven()
+    {
+        return $this->hasMany(Review::class, 'reviewer_id');
+    }
+
+    //自分がされた評価
+    public function reviewsReceived()
+    {
+        return $this->hasMany(Review::class, 'reviewee_id');
+    }
+
+    protected $appends = ['average_rating'];
+
+    // アクセサ平均評価
+    public function getAverageRatingAttribute()
+    {
+        $avg = $this->reviewsReceived()->avg('rating');
+
+        if (is_null($avg)) {
+            return null;
+        }
+
+        return round($avg);
+
     }
 }

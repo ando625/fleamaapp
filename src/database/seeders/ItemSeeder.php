@@ -85,7 +85,7 @@ class ItemSeeder extends Seeder
                 'item_path' => 'item/Mic.jpg',
                 'created_at' => now(),
                 'updated_at' => now(),
-                'user_id' => 1,
+                'user_id' => 2,
             ],
             [
                 'name' => 'ショルダーバック',
@@ -97,7 +97,7 @@ class ItemSeeder extends Seeder
                 'item_path' => 'item/bag.jpg',
                 'created_at' => now(),
                 'updated_at' => now(),
-                'user_id' => 1,
+                'user_id' => 2,
             ],
             [
                 'name' => 'タンブラー',
@@ -109,7 +109,7 @@ class ItemSeeder extends Seeder
                 'item_path' => 'item/Tumbler.jpg',
                 'created_at' => now(),
                 'updated_at' => now(),
-                'user_id' => 1,
+                'user_id' => 2,
             ],
             [
                 'name' => 'コーヒーミル',
@@ -121,7 +121,7 @@ class ItemSeeder extends Seeder
                 'item_path' => 'item/CoffeeGrinder.jpg',
                 'created_at' => now(),
                 'updated_at' => now(),
-                'user_id' => 1,
+                'user_id' => 2,
             ],
             [
                 'name' => 'メイクセット',
@@ -133,7 +133,7 @@ class ItemSeeder extends Seeder
                 'item_path' => 'item/Makeupset.jpg',
                 'created_at' => now(),
                 'updated_at' => now(),
-                'user_id' => 1,
+                'user_id' => 2,
             ],
         ];
 

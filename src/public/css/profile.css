@@ -37,6 +37,7 @@
     flex-direction: column;
     align-items: center;
     margin: 0 30px;
+    gap: 8px;
 }
 
 .username {
@@ -44,6 +45,21 @@
     font-weight: 600;
     color: #333;
     margin: 0;
+}
+
+.rating-display {
+    display: flex;
+    gap: 4px;
+    font-size: 28px;
+    line-height: 1;
+}
+
+.star-filled {
+    color: #FFD700;
+}
+
+.star-empty {
+    color: #D0D0D0;
 }
 
 .profile-actions {
@@ -85,17 +101,33 @@
     font-weight: bold;
     border-bottom: 3px solid transparent;
     transition: all 0.3s ease;
-    margin-right: 0;
+    margin-right: 80px;
     margin-top: 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 4px;
 }
 
-.tab-link:first-child {
-    margin-left: 0;
-    margin-right: 80px;
+.tab-link:last-child {
+    margin-right: 0;
 }
 
 .tab-link.active {
     color: #ff0000;
+}
+
+.tab-link span {
+    background-color: #ff0000;
+    color: white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: bold;
 }
 
 .products-grid {
@@ -109,6 +141,7 @@
 
 .product-item {
     width: 100%;
+    position: relative;
 }
 
 .product-image {
@@ -137,6 +170,23 @@
     border-radius: 4px;
 }
 
+.message-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #ff0000;
+    color: white;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+    z-index: 10;
+}
+
 .sold-overlay {
     position: absolute;
     top: 10px;
@@ -159,7 +209,6 @@
     color: #000000;
     font-weight: bold;
 }
-
 
 @media (min-width: 1400px) and (max-width: 1540px) {
     .tab-navigation {
@@ -184,15 +233,21 @@
     }
 }
 
-
 @media (min-width: 768px) and (max-width: 850px) {
     .tab-navigation {
         padding: 0 16px;
         padding-left: 80px;
     }
 
-    .tab-link:first-child {
+    .tab-link {
         margin-right: 40px;
+        font-size: 16px;
+    }
+
+    .tab-link span {
+        width: 20px;
+        height: 20px;
+        font-size: 12px;
     }
 
     .products-grid {
@@ -215,6 +270,12 @@
     .product-name {
         font-size: 14px;
     }
+
+    .message-badge {
+        width: 28px;
+        height: 28px;
+        font-size: 14px;
+    }
 }
 
 @media (max-width: 767px) {
@@ -223,8 +284,15 @@
         padding-left: 50px;
     }
 
-    .tab-link:first-child {
+    .tab-link {
         margin-right: 30px;
+        font-size: 14px;
+    }
+
+    .tab-link span {
+        width: 18px;
+        height: 18px;
+        font-size: 11px;
     }
 
     .products-grid {
@@ -245,6 +313,12 @@
     }
 
     .product-name {
+        font-size: 12px;
+    }
+
+    .message-badge {
+        width: 24px;
+        height: 24px;
         font-size: 12px;
     }
 }

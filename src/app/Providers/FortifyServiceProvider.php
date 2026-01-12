@@ -8,6 +8,8 @@ use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Fortify\Fortify;
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Support\Facades\RateLimiter;
 
 
 class FortifyServiceProvider extends ServiceProvider
@@ -32,6 +34,13 @@ class FortifyServiceProvider extends ServiceProvider
     public function boot()
 
     {
+
+        // ログイン試行回数の制限を変更
+        RateLimiter::for('login', function (Request $request) {
+            return Limit::perMinute(20)->by($request->email . $request->ip());
+            // ↑1分に20回まで試行できるように変更
+        });
+
         Fortify::loginView(function () {
             return view('auth.login');
         });

@@ -1,0 +1,483 @@
+/* 全体のリセットとベース */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #f5f5f5;
+}
+
+/* メインコンテナ */
+.interact-container {
+    display: flex;
+    height: 100vh;
+    max-width: 100%;
+    background-color: #fff;
+}
+
+/* 左サイドバー */
+.sidebar {
+    width: 235px;
+    background-color: #4a4a4a;
+    color: #fff;
+    padding: 20px 0;
+    overflow-y: auto;
+}
+
+.sidebar-title {
+    font-size: 18px;
+    font-weight: 600;
+    padding: 15px 25px;
+    margin-bottom: 10px;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-item {
+    padding: 15px 25px;
+    color: #fff;
+    text-decoration: none;
+    background-color: #5a5a5a;
+    margin: 5px 15px;
+    border-radius: 5px;
+    transition: background-color 0.2s;
+}
+
+.sidebar-item:hover {
+    background-color: #6a6a6a;
+}
+
+.item-label {
+    font-size: 14px;
+}
+
+/* メインコンテンツエリア */
+.main-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+/* ヘッダー */
+.interact-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background-color: #fff;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: #e0e0e0;
+}
+
+.user-info h1 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+}
+
+.complete-btn {
+    background-color: #ff6b6b;
+    color: #fff;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.complete-btn:hover {
+    background-color: #ff5252;
+}
+
+.interact-header+hr,
+.product-info+hr {
+    border: none;
+    border-top: 1px solid #e0e0e0;
+    margin: 0;
+}
+
+/* 商品情報エリア */
+.product-info {
+    display: flex;
+    gap: 30px;
+    padding: 30px 40px;
+    background-color: #fff;
+}
+
+.product-image {
+    width: 180px;
+    height: 180px;
+    background-color: #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.product-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 15px;
+}
+
+.product-name {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+}
+
+.product-price {
+    font-size: 18px;
+    color: #666;
+}
+
+/* メッセージエリア */
+.message-area {
+    flex: 1;
+    overflow-y: auto;
+    padding: 30px 40px;
+    background-color: #fafafa;
+    display: flex;
+    flex-direction: column;
+}
+
+/* メッセージグループ - 左側（相手のメッセージ） */
+.message-group {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.message-group.other-message {
+    flex-direction: row;
+}
+
+.message-group.own-message {
+    flex-direction: row-reverse;
+}
+
+.message-avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: #e0e0e0;
+    flex-shrink: 0;
+}
+
+.message-content {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    max-width: 60%;
+}
+
+.message-name {
+    font-size: 13px;
+    color: #666;
+    padding: 0 5px;
+}
+
+.message-group.other-message .message-name {
+    text-align: left;
+}
+
+.message-group.own-message .message-name {
+    text-align: right;
+}
+
+.message-bubble {
+    background-color: #e8e8e8;
+    padding: 12px 16px;
+    border-radius: 12px;
+    position: relative;
+}
+
+.message-group.own-message .message-bubble {
+    background-color: #e8e8e8;
+}
+
+.message-text {
+    color: #333;
+    font-size: 14px;
+    line-height: 1.5;
+    word-wrap: break-word;
+}
+
+/* メッセージ編集フォーム */
+.edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.edit-textarea {
+    width: 100%;
+    min-height: 60px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+    resize: vertical;
+}
+
+.message-actions {
+    display: inline-flex;
+    gap: 15px;
+    margin-top: 8px;
+}
+
+.action-btn {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    font-size: 12px;
+    cursor: pointer;
+    color: #999;
+    transition: color 0.2s;
+}
+
+.action-btn:hover {
+    color: #666;
+}
+
+/* 入力エリア */
+.input-area {
+    padding: 20px 40px;
+    background-color: #fff;
+    border-top: 1px solid #e0e0e0;
+}
+
+.error-text {
+    color: #ff6b6b;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.message-form {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.message-input {
+    flex: 1;
+    padding: 12px 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+    resize: none;
+    min-height: 45px;
+    max-height: 120px;
+}
+
+.message-input:focus {
+    outline: none;
+    border-color: #999;
+}
+
+.image-upload-btn {
+    background-color: #fff;
+    border: 2px solid #ff6b6b;
+    color: #ff6b6b;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+}
+
+.image-upload-btn:hover {
+    background-color: #fff5f5;
+}
+
+.image-input {
+    display: none;
+}
+
+.send-btn {
+    background-color: transparent;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s;
+}
+
+.send-btn:hover {
+    transform: scale(1.1);
+}
+
+.send-icon {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.send-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* モーダル */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #fffef0;
+    border: 2px solid #333;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 540px;
+    padding: 0;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+    padding: 30px 40px 20px;
+}
+
+.modal-title {
+    font-size: 22px;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+}
+
+.modal-content hr {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 0;
+}
+
+.modal-body {
+    padding: 40px;
+    text-align: center;
+}
+
+.rating-label {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 30px;
+    display: block;
+}
+
+.star-rating {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.star {
+    background: none;
+    border: none;
+    font-size: 60px;
+    color: #e0e0e0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 5px;
+    line-height: 1;
+}
+
+.star:hover {
+    transform: scale(1.1);
+}
+
+.star.active {
+    color: #FFD700;
+}
+
+.modal-footer {
+    padding: 20px 40px 30px;
+    text-align: center;
+}
+
+.submit-btn {
+    background-color: #ff8080;
+    color: #fff;
+    border: none;
+    padding: 14px 50px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    box-shadow: 0 2px 8px rgba(255, 128, 128, 0.3);
+}
+
+.submit-btn:hover {
+    background-color: #ff6b6b;
+}
+
+/* スクロールバーのスタイリング */
+.message-area::-webkit-scrollbar,
+.sidebar::-webkit-scrollbar {
+    width: 8px;
+}
+
+.message-area::-webkit-scrollbar-track,
+.sidebar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.message-area::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: #666;
+    border-radius: 4px;
+}
+
+.message-area::-webkit-scrollbar-thumb:hover,
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background: #999;
+}

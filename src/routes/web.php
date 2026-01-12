@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 
@@ -46,6 +47,12 @@ Route::middleware('auth', 'verified')->group(function () {
         Route::post('/store', [ProfileController::class, 'store'])->name('store');
         Route::get('/edit', [ProfileController::class, 'edit'])->name('edit');
         Route::put('/update', [ProfileController::class, 'update'])->name('update');
+        Route::get('/interact/{transaction}', [TransactionController::class, 'show'])->name('transactions.show');
+        Route::post('/interact/{transaction}/messages', [TransactionController::class, 'messageStore'])->name('messages.store');
+        Route::put('/interact/messages/{message}', [TransactionController::class, 'messageUpdate'])->name('messages.update');
+        Route::delete('/interact/messages/{message}', [TransactionController::class, 'messageDestroy'])->name('messages.destroy');
+        Route::post('/interact/{transaction}/rate', [TransactionController::class, 'rate'])->name('transactions.rate');
+        Route::post('/transactions/{transaction}/complete',[TransactionController::class, 'complete'])->name('transactions.complete');
     });
 
     Route::get('/sell', [ItemController::class, 'listing'])->name('items.listing');
@@ -59,10 +66,9 @@ Route::middleware('auth', 'verified')->group(function () {
         Route::get('/{item}/buy', [PurchaseController::class, 'buy'])->name('buy');
         Route::get('/{item}/change', [PurchaseController::class, 'change'])->name('change');
         Route::post('/{item}/updateAddress', [PurchaseController::class, 'updateAddress'])->name('updateAddress');
-        Route::post('/{item}/store', [PurchaseController::class, 'store'])->name('store');
 
         Route::post('/{item}/checkout', [PurchaseController::class, 'checkoutStore'])->name('checkout');
-        Route::get('/{item}/complete', [PurchaseController::class, 'completeStore'])->name('complete');
+        Route::get('/{item}/stripe-success', [PurchaseController::class, 'stripeSuccess'])->name('stripeSuccess');
     });
 
 });

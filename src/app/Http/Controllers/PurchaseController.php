@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Item;
 use App\Models\Order;
+use App\Models\Transaction;
 use App\Http\Requests\AddressRequest;
 use App\Http\Requests\PurchaseRequest;
 use Stripe\Stripe;
@@ -13,6 +14,7 @@ use Stripe\Stripe;
 
 class PurchaseController extends Controller
 {
+    // 購入画面表示
     public function buy(Item $item)
     {
         $user = Auth::user();
@@ -39,6 +41,7 @@ class PurchaseController extends Controller
         return view('purchase.buy', compact('item', 'addressData', 'profile'));
     }
 
+    // 住所変更画面表
     public function change(Item $item)
     {
         $user = Auth::user();
@@ -57,6 +60,8 @@ class PurchaseController extends Controller
         return view('purchase.change', compact('addressData', 'item'));
     }
 
+
+    // 住所変更保存
     public function updateAddress(AddressRequest $request, Item $item)
     {
         $validated = $request->validated();
@@ -67,6 +72,7 @@ class PurchaseController extends Controller
         return redirect()->route('purchase.buy', $item->id);
     }
 
+
     public function checkoutStore(Item $item, PurchaseRequest $request)
     {
         $user = Auth::user();
@@ -75,7 +81,7 @@ class PurchaseController extends Controller
         $paymentMethod = $request->input('payment_method', 'card');
 
         if ($paymentMethod === 'konbini') {
-            Order::create([
+            $order = Order::create([
                 'user_id' => $user->id,
                 'item_id' => $item->id,
                 'payment_method' => 'convenience_store',
@@ -85,14 +91,20 @@ class PurchaseController extends Controller
                 'recipient_building' => $user->profile->building,
             ]);
 
-            $item->update(['status' => 'sold']);
+            $transaction = Transaction::create([
+                'item_id' => $item->id,
+                'buyer_id' => $user->id,
+                'seller_id' => $item->user->id,
+                'status' => 'pending',
+            ]);
 
-            return redirect('/')->with('success', 'コンビニ支払いで購入が完了しました！');
+            return redirect()->route('profile.transactions.show', $transaction->id)->with('success', 'コンビニ支払いで購入が完了しました！取引チャットに進めます');
         }
 
+        //カード支払いの場合はScriptセッション作成
         \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
 
-        $successUrl = route('purchase.complete', $item->id);
+        $successUrl = route('purchase.stripeSuccess', $item->id);
         $cancelUrl  = route('items.index');
 
         $session = \Stripe\Checkout\Session::create([
@@ -113,7 +125,8 @@ class PurchaseController extends Controller
         return redirect($session->url);
     }
 
-    public function completeStore(Item $item, Request $request)
+    //Script支払い成功後に呼ばれる
+    public function stripeSuccess(Item $item, Request $request)
     {
         $user = Auth::user();
         if (!$user) return redirect()->route('login');
@@ -132,9 +145,15 @@ class PurchaseController extends Controller
             'recipient_building' => $user->profile->building,
         ]);
 
-        $item->update(['status' => 'sold']);
+        $transaction = Transaction::create([
+            'item_id' => $item->id,
+            'buyer_id' => $user->id,
+            'seller_id' => $item->user_id,
+            'status' => 'pending',
+        ]);
 
-        return redirect('/')->with('success', 'カード支払いで購入が完了しました！');
+
+        return redirect()->route('profile.transactions.show', $transaction->id)->with('success', 'カード支払いで購入が完了しました！取引チャットに進めます');
     }
 
 

@@ -7,20 +7,59 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ProfileRequest;
 use App\Models\Profile;
 use App\Models\Item;
+use App\Models\Transaction;
+
+
 
 class ProfileController extends Controller
 {
     public function mypage(Request $request)
     {
         $user = Auth::user();
-
         $tab = $request->query('page', 'sell');
-
         $listings = $user->items()->get();
 
-        $purchases = Item::whereIn('id', $user->orders()->pluck('item_id'))->get();
 
-        return view('profile.profile', compact('user', 'listings', 'purchases', 'tab'));
+        $purchases = Transaction::where('buyer_id', $user->id)
+            ->whereNotNull('completed_at')   // 取引完了
+            ->whereHas('item', function ($q) {
+                $q->where('status', 'sold'); // 商品が sold
+            })
+            ->with('item')
+            ->get()
+            ->map(fn($t) => $t->item);
+
+        $transactions = Transaction::where(function ($q) use ($user){
+            $q->where('seller_id', $user->id)
+                ->orWhere('buyer_id', $user->id);
+        })
+            ->whereNull('completed_at')
+            ->with(['item', 'messages'])
+            ->withMax('messages', 'created_at')
+            ->orderBy('messages_max_created_at', 'desc')
+            ->get()
+            ->unique('id');
+
+        $transactions->each(function ($transaction) use ($user) {
+            $transaction->unread_count = $transaction->messages
+                ->where('is_read', false)
+                ->where('sender_id', '!=', $user->id)
+                ->count();
+        });
+
+        $unreadCount = $transactions->sum('unread_count');
+        $transactionCount = $transactions->count();
+
+        if ($tab === 'sell') {
+            $itemsToShow = $listings;
+        } elseif ($tab === 'buy') {
+            $itemsToShow = $purchases;
+        } else {
+            $itemsToShow = $transactions;
+        }
+
+
+        return view('profile.profile', compact('user', 'listings', 'purchases', 'transactions', 'unreadCount','transactionCount', 'tab', 'itemsToShow'));
     }
 
     public function listings()
@@ -41,6 +80,7 @@ class ProfileController extends Controller
         return view('profile.profile', compact('user', 'tab', 'purchases'));
     }
 
+    // プロフィール新規画面表示
     public function create()
     {
         $user = Auth::user();
@@ -48,6 +88,7 @@ class ProfileController extends Controller
         return view('profile.create', compact('user'));
     }
 
+    // プロフィール新規登録
     public function store(ProfileRequest $request)
     {
         $user = Auth::user();
@@ -72,6 +113,7 @@ class ProfileController extends Controller
         return redirect('/');
     }
 
+    // 登録後マイページでのプロフィール編集画面表示
     public function edit()
     {
         $user = Auth::user();
@@ -81,6 +123,8 @@ class ProfileController extends Controller
         return view('profile.edit', compact('user', 'profile'));
     }
 
+
+    // プロフィール更新既にあるものを
     public function update(ProfileRequest $request)
     {
         $user = Auth::user();
@@ -111,4 +155,8 @@ class ProfileController extends Controller
 
         return redirect()->route('mypage');
     }
+
+   
+
+
 }
