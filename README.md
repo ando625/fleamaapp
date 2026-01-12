@@ -614,20 +614,23 @@ php artisan migrate:fresh --seed
 | updated_at | timestamp |  |  | ○ |  |
 
 
-### transactionsテーブル
+### transactions テーブル
 
 | カラム名 | 型 | PK | UNIQUE | NOT NULL | FK |
 |---|---|---|---|---|---|
 | id | unsigned bigint | ○ |  | ○ |  |
-| item_id | unsigned bigint |  | ○ | ○ | items(id) |
-| seller_id | unsigned bigint |  |  | ○ | users(id) |
+| item_id | unsigned bigint |  |  | ○ | items(id) |
 | buyer_id | unsigned bigint |  |  | ○ | users(id) |
+| seller_id | unsigned bigint |  |  | ○ | users(id) |
 | status | string |  |  | ○ |  |
+| completed_at | timestamp |  |  |  |  |
+| buyer_reviewed | boolean |  |  | ○ |  |
+| seller_reviewed | boolean |  |  | ○ |  |
 | created_at | timestamp |  |  | ○ |  |
 | updated_at | timestamp |  |  | ○ |  |
 
 
-### messagesテーブル
+### messages テーブル
 
 | カラム名 | 型 | PK | UNIQUE | NOT NULL | FK |
 |---|---|---|---|---|---|
@@ -640,6 +643,7 @@ php artisan migrate:fresh --seed
 | created_at | timestamp |  |  | ○ |  |
 | updated_at | timestamp |  |  | ○ |  |
 
+
 ### reviewsテーブル
 
 | カラム名 | 型 | PK | UNIQUE | NOT NULL | FK |
@@ -649,7 +653,6 @@ php artisan migrate:fresh --seed
 | reviewer_id | unsigned bigint |  |  | ○ | users(id) |
 | reviewee_id | unsigned bigint |  |  | ○ | users(id) |
 | rating | integer |  |  | ○ |  |
-| comment | text |  |  |  |  |
 | created_at | timestamp |  |  | ○ |  |
 | updated_at | timestamp |  |  | ○ |  |
 
@@ -712,7 +715,20 @@ php artisan migrate:fresh --seed
 
 ---
 
-## 12. 開発環境 URL
+## 12. 使用技術
+
+- PHP 8.1.34
+- Laravel 8.83.8
+- MySQL 8.0.26
+- MailHog
+- Laravel Fortify
+- PHPUnit
+- GitHub
+---
+
+---
+
+## 13. 開発環境 URL
 
 - 開発環境: http://localhost/
 - phpMyAdmin: http://localhost:8080/
