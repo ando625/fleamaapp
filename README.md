@@ -503,14 +503,216 @@ PHPコンテナに入ってから
 php artisan migrate:fresh --seed
 ```
 
----
-## 10. ED図
-
-![ED図](./docs/ED.png)
 
 ---
+## 10.テーブル
 
-## 11. 開発環境 URL
+### usersテーブル
+
+| カラム名 | 型 | PK | UNIQUE | NOT NULL | FK |
+|---|---|---|---|---|---|
+| id | unsigned bigint | ○ |  | ○ |  |
+| name | string |  |  | ○ |  |
+| email | string |  | ○ | ○ |  |
+| password | string |  |  | ○ |  |
+| created_at | timestamp |  |  | ○ |  |
+| updated_at | timestamp |  |  | ○ |  |
+
+
+### profilesテーブル
+
+| カラム名 | 型 | PK | UNIQUE | NOT NULL | FK |
+|---|---|---|---|---|---|
+| id | unsigned bigint | ○ |  | ○ |  |
+| user_id | unsigned bigint |  | ○ | ○ | users(id) |
+| profile_image | string |  |  |  |  |
+| postal_code | string |  |  | ○ |  |
+| address | string |  |  | ○ |  |
+| building | string |  |  |  |  |
+| created_at | timestamp |  |  | ○ |  |
+| updated_at | timestamp |  |  | ○ |  |
+
+
+### categoriesテーブル
+
+| カラム名 | 型 | PK | UNIQUE | NOT NULL | FK |
+|---|---|---|---|---|---|
+| id | unsigned bigint | ○ |  | ○ |  |
+| name | string |  |  | ○ |  |
+| created_at | timestamp |  |  | ○ |  |
+| updated_at | timestamp |  |  | ○ |  |
+
+### itemsテーブル
+
+| カラム名 | 型 | PK | UNIQUE | NOT NULL | FK |
+|---|---|---|---|---|---|
+| id | unsigned bigint | ○ |  | ○ |  |
+| user_id | unsigned bigint |  |  | ○ | users(id) |
+| name | string |  |  | ○ |  |
+| brand | string |  |  |  |  |
+| description | string |  |  | ○ |  |
+| price | text |  |  | ○ |  |
+| condition_id | unsigned bigint |  |  | ○ | conditions(id) |
+| status | string |  |  | ○ |  |
+| item_path | string |  |  | ○ |  |
+| created_at | timestamp |  |  | ○ |  |
+| updated_at | timestamp |  |  | ○ |  |
+
+### commentsテーブル
+
+| カラム名 | 型 | PK | UNIQUE | NOT NULL | FK |
+|---|---|---|---|---|---|
+| id | unsigned bigint | ○ |  | ○ |  |
+| user_id | unsigned bigint |  |  | ○ | users(id) |
+| item_id | unsigned bigint |  |  | ○ | items(id) |
+| content | text |  |  | ○ |  |
+| created_at | timestamp |  |  | ○ |  |
+| updated_at | timestamp |  |  | ○ |  |
+
+### favoritesテーブル
+
+| カラム名 | 型 | PK | UNIQUE | NOT NULL | FK |
+|---|---|---|---|---|---|
+| id | unsigned bigint | ○ |  | ○ |  |
+| user_id | unsigned bigint |  |  | ○ | users(id) |
+| item_id | unsigned bigint |  |  | ○ | items(id) |
+| created_at | timestamp |  |  | ○ |  |
+| updated_at | timestamp |  |  | ○ |  |
+
+### ordersテーブル
+
+| カラム名 | 型 | PK | UNIQUE | NOT NULL | FK |
+|---|---|---|---|---|---|
+| id | unsigned bigint | ○ |  | ○ |  |
+| user_id | unsigned bigint |  |  | ○ | users(id) |
+| item_id | unsigned bigint |  |  | ○ | items(id) |
+| recipient_name | string |  |  | ○ |  |
+| recipient_postal | string |  |  | ○ |  |
+| recipient_address | string |  |  | ○ |  |
+| recipient_building | string |  |  |  |  |
+| payment_method | string |  |  | ○ |  |
+| created_at | timestamp |  |  | ○ |  |
+| updated_at | timestamp |  |  | ○ |  |
+
+### items_categoriesテーブル
+
+| カラム名 | 型 | PK | UNIQUE | NOT NULL | FK |
+|---|---|---|---|---|---|
+| id | unsigned bigint | ○ |  | ○ |  |
+| item_id | unsigned bigint |  |  | ○ | items(id) |
+| category_id | unsigned bigint |  |  | ○ | categories(id) |
+| created_at | timestamp |  |  | ○ |  |
+| updated_at | timestamp |  |  | ○ |  |
+
+### conditionsテーブル
+
+| カラム名 | 型 | PK | UNIQUE | NOT NULL | FK |
+|---|---|---|---|---|---|
+| id | unsigned bigint | ○ |  | ○ |  |
+| name | string |  |  | ○ |  |
+| created_at | timestamp |  |  | ○ |  |
+| updated_at | timestamp |  |  | ○ |  |
+
+
+### transactionsテーブル
+
+| カラム名 | 型 | PK | UNIQUE | NOT NULL | FK |
+|---|---|---|---|---|---|
+| id | unsigned bigint | ○ |  | ○ |  |
+| item_id | unsigned bigint |  | ○ | ○ | items(id) |
+| seller_id | unsigned bigint |  |  | ○ | users(id) |
+| buyer_id | unsigned bigint |  |  | ○ | users(id) |
+| status | string |  |  | ○ |  |
+| created_at | timestamp |  |  | ○ |  |
+| updated_at | timestamp |  |  | ○ |  |
+
+
+### messagesテーブル
+
+| カラム名 | 型 | PK | UNIQUE | NOT NULL | FK |
+|---|---|---|---|---|---|
+| id | unsigned bigint | ○ |  | ○ |  |
+| transaction_id | unsigned bigint |  |  | ○ | transactions(id) |
+| sender_id | unsigned bigint |  |  | ○ | users(id) |
+| body | text |  |  | ○ |  |
+| image_path | string |  |  |  |  |
+| is_read | boolean |  |  | ○ |  |
+| created_at | timestamp |  |  | ○ |  |
+| updated_at | timestamp |  |  | ○ |  |
+
+### reviewsテーブル
+
+| カラム名 | 型 | PK | UNIQUE | NOT NULL | FK |
+|---|---|---|---|---|---|
+| id | unsigned bigint | ○ |  | ○ |  |
+| transaction_id | unsigned bigint |  | ○ | ○ | transactions(id) |
+| reviewer_id | unsigned bigint |  |  | ○ | users(id) |
+| reviewee_id | unsigned bigint |  |  | ○ | users(id) |
+| rating | integer |  |  | ○ |  |
+| comment | text |  |  |  |  |
+| created_at | timestamp |  |  | ○ |  |
+| updated_at | timestamp |  |  | ○ |  |
+
+
+
+
+
+
+---
+## 追加機能
+
+### 取引完了時のメール通知について（MailHog）
+
+商品購入者が取引を完了し、評価を送信すると  
+出品者宛に取引完了通知メールが自動送信されます。
+
+本機能は **バックエンド側でのメール送信処理のみを実装** しており、  
+アプリケーション画面上からメール内容を確認する導線は設けていません。
+
+これは、実運用ではユーザーが自身のメールクライアント（Gmail 等）で  
+メールを確認する想定であるためです。
+
+---
+
+### 開発環境での確認方法（MailHog）
+
+ローカル開発環境では、MailHog を使用して  
+送信されたメールを確認することができます。
+
+以下の URL にアクセスすることで、  
+送信されたメール一覧・本文を確認できます。
+
+- http://localhost:8025
+
+---
+
+
+## 取引完了の仕様について
+
+本アプリでは、取引は **購入者・出品者の双方が評価を完了した時点で完了** となります。
+
+### 取引完了までの流れ
+
+1. 購入者が取引チャット画面で「取引を完了する」をクリック
+2. 購入者が出品者を評価する
+3. 出品者が取引チャット画面を開き、購入者を評価する
+4. **購入者・出品者の両者が評価を完了した時点で取引完了**
+
+---
+### 仕様の意図
+
+片方のみの評価では取引を完了とせず、  
+**両者の合意（相互評価）をもって取引完了とする** ことで、  
+一方的な取引終了を防ぐ仕様としています。
+
+---
+## 11. ED図
+
+![ED図](./docs/ed3.png)
+
+---
+
+## 12. 開発環境 URL
 
 - 開発環境: http://localhost/
 - phpMyAdmin: http://localhost:8080/
