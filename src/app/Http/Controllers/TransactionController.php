@@ -44,6 +44,8 @@ class TransactionController extends Controller
             ->whereNull('completed_at')          // ← 完了は除外
             ->where('id', '!=', $transaction->id) // ← 今の取引を除外
             ->with('item')
+            ->withMax('messages', 'created_at')
+            ->orderBy('messages_max_created_at', 'desc')
             ->get();
 
 
