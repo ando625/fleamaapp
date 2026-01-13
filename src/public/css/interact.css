@@ -285,6 +285,18 @@ body {
     resize: vertical;
 }
 
+.message-image {
+    margin-top: 10px;
+}
+
+.message-image img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    max-height: 300px;
+    border-radius: 6px;
+    object-fit: contain;
+}
 
 
 /* 入力エリア */
@@ -296,9 +308,8 @@ body {
 }
 
 .error-text {
-    color: #ff6b6b;
-    font-size: 13px;
-    margin-bottom: 10px;
+    color: red;
+    font-size: 15px;
 }
 
 .message-form {
@@ -336,6 +347,7 @@ body {
     white-space: nowrap;
     transition: all 0.2s;
     margin-left: 10px;
+    position: relative;
 }
 
 .image-upload-btn:hover {
@@ -343,7 +355,11 @@ body {
 }
 
 .image-input {
-    display: none;
+    position: absolute;
+    inset: 0;
+    /* label 全体にかぶせる */
+    opacity: 0;
+    cursor: pointer;
 }
 
 .send-btn {

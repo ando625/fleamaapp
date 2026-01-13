@@ -63,6 +63,11 @@
                             <div class="message-text" id="message-text-{{ $message->id }}">
                                 {{ $message->body }}
                             </div>
+                            @if($message->image_path)
+                            <div class="message-image">
+                                <img src="{{ asset('storage/' . $message->image_path) }}" alt="送信画像">
+                            </div>
+@endif
 
                             @if($isOwn)
                             <form action="{{ route('profile.messages.update', $message) }}" method="post" class="edit-form" id="edit-form-{{ $message->id }}" style="display: none;">
@@ -105,7 +110,7 @@
 
                 <label class="image-upload-btn">
                     画像を追加
-                    <input type="file" class="image-input" name="image" accept=".png,.jpeg">
+                    <input type="file" class="image-input" name="image" accept=".png,.jpeg,.jpg,image/*" onchange="console.log(this.files)">
                 </label>
 
                 <button class="send-btn" type="submit">

@@ -85,6 +85,7 @@ class TransactionController extends Controller
         ]);
 
         return redirect()->back()->withInput();
+
     }
 
     public function messageUpdate(MessageRequest $request, Message $message)
