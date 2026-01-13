@@ -72,17 +72,18 @@
                                 <button type="submit" class="action-btn">保存</button>
                                 <button type="button" class="action-btn cancel-btn" data-id="{{ $message->id }}">キャンセル</button>
                             </form>
-
-                            <div class="message-actions">
-                                <button class="action-btn edit-btn" data-id="{{ $message->id }}">編集</button>
-                                <form action="{{ route('profile.messages.destroy', $message) }}" method="post" onsubmit="return confirm('このメッセージを削除しますか？')" style="display: inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="action-btn" type="submit">削除</button>
-                                </form>
-                            </div>
                             @endif
                         </div>
+                        @if($isOwn)
+                        <div class="message-actions">
+                            <button class="action-btn edit-btn" data-id="{{ $message->id }}">編集</button>
+                            <form action="{{ route('profile.messages.destroy', $message) }}" method="post" onsubmit="return confirm('このメッセージを削除しますか？')" style="display: inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button class="action-btn" type="submit">削除</button>
+                            </form>
+                        </div>
+                        @endif
                     </div>
                 </div>
             @endforeach
@@ -103,7 +104,7 @@
                 <textarea name="body" class="message-input" placeholder="取引メッセージを記入してください" rows="1">{{ old('body') }}</textarea>
 
                 <label class="image-upload-btn">
-                    画像を選択
+                    画像を追加
                     <input type="file" class="image-input" name="image" accept=".png,.jpeg">
                 </label>
 
@@ -196,10 +197,19 @@
 
     // --- チャット入力保持 ---
     const textarea = document.querySelector('.message-input');
+
     if (textarea) {
-        textarea.value = localStorage.getItem('chat_body') ?? '';
-        textarea.addEventListener('input', () => localStorage.setItem('chat_body', textarea.value));
-        textarea.form.addEventListener('submit', () => localStorage.removeItem('chat_body'));
+        const transactionId = '{{ $transaction->id }}';
+        const storageKey = `chat_body_${transactionId}`;
+
+        textarea.value = localStorage.getItem(storageKey) ?? '';
+        textarea.addEventListener('input', () => {
+            localStorage.setItem(storageKey, textarea.value);
+        });
+
+        textarea.form.addEventListener('submit', () => {
+            localStorage.removeItem(storageKey);
+        })
     }
 
     // --- モーダル処理 ---

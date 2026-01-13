@@ -13,7 +13,7 @@ body {
 /* メインコンテナ */
 .interact-container {
     display: flex;
-    height: 100vh;
+    /* height: 100vh; */
     max-width: 100%;
     background-color: #fff;
 }
@@ -21,15 +21,15 @@ body {
 /* 左サイドバー */
 .sidebar {
     width: 235px;
-    background-color: #4a4a4a;
-    color: #fff;
+    background-color: #868686;
+    color: #FFFFFF;
     padding: 20px 0;
     overflow-y: auto;
 }
 
 .sidebar-title {
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 30px;
+    font-weight: bold;
     padding: 15px 25px;
     margin-bottom: 10px;
 }
@@ -41,12 +41,13 @@ body {
 
 .sidebar-item {
     padding: 15px 25px;
-    color: #fff;
+    color: #000000;
     text-decoration: none;
-    background-color: #5a5a5a;
+    background-color: #EEEFEB;
     margin: 5px 15px;
     border-radius: 5px;
     transition: background-color 0.2s;
+    text-align: center;
 }
 
 .sidebar-item:hover {
@@ -55,6 +56,7 @@ body {
 
 .item-label {
     font-size: 14px;
+    font-weight: bold;
 }
 
 /* メインコンテンツエリア */
@@ -63,7 +65,8 @@ body {
     display: flex;
     flex-direction: column;
     background-color: #fff;
-    overflow: hidden;
+    /* overflow: hidden; */
+    min-height: 100vh;  /* 画面全体の高さを確保 */
 }
 
 /* ヘッダー */
@@ -71,7 +74,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 40px;
+    padding: 0px 40px;
     background-color: #fff;
 }
 
@@ -82,27 +85,27 @@ body {
 }
 
 .user-avatar {
-    width: 60px;
-    height: 60px;
+    width: 79px;
+    height: 79px;
     border-radius: 50%;
     object-fit: cover;
     background-color: #e0e0e0;
 }
 
 .user-info h1 {
-    font-size: 20px;
-    font-weight: 600;
-    color: #333;
+    font-size: 36px;
+    font-weight: bold;
+    color: #000000;
 }
 
 .complete-btn {
-    background-color: #ff6b6b;
-    color: #fff;
+    background-color: #FF8282;
+    color: #FFFFFF;
     border: none;
     padding: 12px 30px;
-    border-radius: 25px;
-    font-size: 14px;
-    font-weight: 600;
+    border-radius: 30px;
+    font-size: 15px;
+    font-weight: bold;
     cursor: pointer;
     transition: background-color 0.2s;
 }
@@ -114,7 +117,7 @@ body {
 .interact-header+hr,
 .product-info+hr {
     border: none;
-    border-top: 1px solid #e0e0e0;
+    border-top: 2px solid #5F5F5F;
     margin: 0;
 }
 
@@ -149,90 +152,122 @@ body {
 }
 
 .product-name {
-    font-size: 24px;
-    font-weight: 600;
-    color: #333;
+    font-size: 35px;
+    font-weight: bold;
+    color: #000000;
 }
 
 .product-price {
-    font-size: 18px;
-    color: #666;
+    font-size: 30px;
+    color: #000000;
 }
 
-/* メッセージエリア */
+/* --- メッセージエリア全体の余白 --- */
 .message-area {
-    flex: 1;
-    overflow-y: auto;
-    padding: 30px 40px;
-    background-color: #fafafa;
     display: flex;
     flex-direction: column;
+    gap: 30px;
+    /* メッセージ同士の上下の間隔 */
+    padding: 20px 40px;
+    /* 左右に40pxの余白を作って、端に寄りすぎないようにします */
+    /* ★ここが重要！余った縦のスペースをすべてこのエリアが使い切る魔法です */
+    flex: 1;
+    overflow-y: auto;
+    background-color: #fff;
+    /* 背景を白に */
 }
 
-/* メッセージグループ - 左側（相手のメッセージ） */
+/* メッセージ1つ分の塊 */
 .message-group {
     display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 100%;
+    /* 親の幅を超えないように */
+}
+
+/* --- ヘッダー（名前とアイコン） --- */
+.message-header {
+    display: flex;
+    align-items: center;
     gap: 12px;
-    margin-bottom: 25px;
-}
-
-.message-group.other-message {
-    flex-direction: row;
-}
-
-.message-group.own-message {
-    flex-direction: row-reverse;
+    margin-bottom: 8px;
 }
 
 .message-avatar {
-    width: 45px;
-    height: 45px;
+    width: 60px;
+    /* デザインに合わせて少し大きく */
+    height: 60px;
     border-radius: 50%;
     object-fit: cover;
     background-color: #e0e0e0;
-    flex-shrink: 0;
-}
-
-.message-content {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    max-width: 60%;
 }
 
 .message-name {
-    font-size: 13px;
-    color: #666;
-    padding: 0 5px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #000000;
 }
 
-.message-group.other-message .message-name {
-    text-align: left;
-}
-
-.message-group.own-message .message-name {
-    text-align: right;
+/* --- メッセージ本体（吹き出し） --- */
+.message-content {
+    /* ここがポイント！最大幅を制限して、文字数に合わせる */
+    max-width: 75%;
+    width: fit-content;
+    /* 中身の長さに箱を合わせる魔法です */
 }
 
 .message-bubble {
-    background-color: #e8e8e8;
-    padding: 12px 16px;
-    border-radius: 12px;
-    position: relative;
-}
-
-.message-group.own-message .message-bubble {
-    background-color: #e8e8e8;
+    background-color: #D9D9D9;
+    /* 指定デザインの薄いグレー */
+    padding: 15px 25px;
+    /* 吹き出しの中の余白をたっぷり取る */
+    border-radius: 4px;
+    /* 角を丸く */
 }
 
 .message-text {
-    color: #333;
-    font-size: 14px;
-    line-height: 1.5;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1.6;
+    color: #000000;
     word-wrap: break-word;
+    /* 長い英単語があっても改行するように */
 }
 
-/* メッセージ編集フォーム */
+/* --- 自分のメッセージ（右寄せ）の調整 --- */
+.own-message {
+    align-items: flex-end;
+    /* 全体を右に寄せる */
+}
+
+.own-message .message-header {
+    flex-direction: row-reverse;
+    /* 右から「アイコン、名前」の順に */
+}
+
+.own-message .message-bubble {
+    background-color: #D9D9D9;
+    /* 自分も相手も同じグレーにする場合 */
+}
+
+/* 編集・削除ボタン */
+.message-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 5px;
+}
+
+.action-btn {
+    font-size: 15px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #5F5F5F;
+
+}
+
 .edit-form {
     display: flex;
     flex-direction: column;
@@ -250,31 +285,14 @@ body {
     resize: vertical;
 }
 
-.message-actions {
-    display: inline-flex;
-    gap: 15px;
-    margin-top: 8px;
-}
 
-.action-btn {
-    background-color: transparent;
-    border: none;
-    padding: 0;
-    font-size: 12px;
-    cursor: pointer;
-    color: #999;
-    transition: color 0.2s;
-}
-
-.action-btn:hover {
-    color: #666;
-}
 
 /* 入力エリア */
 .input-area {
-    padding: 20px 40px;
+    /* 入力フォームを画面下に固定 */
+    flex-shrink: 0;
+    padding: 0px 40px;
     background-color: #fff;
-    border-top: 1px solid #e0e0e0;
 }
 
 .error-text {
@@ -292,7 +310,7 @@ body {
 .message-input {
     flex: 1;
     padding: 12px 16px;
-    border: 1px solid #ddd;
+    border: 1px solid #5F5F5F;
     border-radius: 8px;
     font-size: 14px;
     font-family: inherit;
@@ -308,8 +326,8 @@ body {
 
 .image-upload-btn {
     background-color: #fff;
-    border: 2px solid #ff6b6b;
-    color: #ff6b6b;
+    border: 2px solid #FF5555;
+    color: #FF5555;
     padding: 10px 20px;
     border-radius: 8px;
     font-size: 13px;
@@ -343,8 +361,8 @@ body {
 }
 
 .send-icon {
-    width: 35px;
-    height: 35px;
+    width: 50px;
+    height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
