@@ -7,6 +7,7 @@
 @section('content')
 
 <div class="interact-container">
+
     <!-- 左サイドバー -->
     <aside class="sidebar">
         <h2 class="sidebar-title">その他の取引</h2>
@@ -21,6 +22,11 @@
 
     <!-- メイン -->
     <div class="main-container">
+        @if (session('success'))
+            <div class="flash-message success">
+                {{ session('success')}}
+            </div>
+        @endif
         <!-- ヘッダー -->
         <div class="interact-header">
             <div class="user-info">
