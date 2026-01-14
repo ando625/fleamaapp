@@ -1,6 +1,6 @@
 # Flema アプリケーション
 
-本リポジトリは **Docker + Laravel 8 + MySQL + Stripe + Fortify** を用いた  
+本リポジトリは **Docker + Laravel 8 + MySQL + Stripe + Fortify + MailHog** を用いた  
 フリマアプリ「Flema」の開発環境および実装内容をまとめたものです。
 
 ---

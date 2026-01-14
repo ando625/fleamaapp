@@ -539,3 +539,137 @@ body {
 .sidebar::-webkit-scrollbar-thumb:hover {
     background: #999;
 }
+
+/* =========================
+   PC（1400px〜1540px）
+   ========================= */
+@media screen and (max-width: 1540px) {
+
+    .sidebar {
+        width: 210px;
+    }
+
+    .sidebar-title {
+        font-size: 26px;
+    }
+
+    .user-info h1 {
+        font-size: 30px;
+    }
+
+    .product-name {
+        font-size: 30px;
+    }
+
+    .product-price {
+        font-size: 26px;
+    }
+
+    .message-content {
+        max-width: 70%;
+    }
+}
+
+/* =========================
+   タブレット（768px〜850px）
+   ========================= */
+@media screen and (max-width: 850px) {
+
+    /* 全体を縦方向に */
+    .interact-container {
+        flex-direction: column;
+    }
+
+    /* サイドバーを上に */
+    .sidebar {
+        width: 100%;
+        padding: 10px 0;
+    }
+
+    .sidebar-title {
+        font-size: 22px;
+        text-align: center;
+    }
+
+    .sidebar-nav {
+        flex-direction: row;
+        overflow-x: auto;
+        padding: 0 10px;
+    }
+
+    .sidebar-item {
+        flex-shrink: 0;
+        margin: 5px;
+        font-size: 13px;
+        padding: 10px 15px;
+    }
+
+    /* ヘッダー */
+    .interact-header {
+        padding: 15px 20px;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .user-info h1 {
+        font-size: 24px;
+        text-align: center;
+    }
+
+    .complete-btn {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    /* 商品情報 */
+    .product-info {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        gap: 20px;
+    }
+
+    .product-image {
+        width: 150px;
+        height: 150px;
+    }
+
+    .product-name {
+        font-size: 26px;
+        text-align: center;
+    }
+
+    .product-price {
+        font-size: 22px;
+        text-align: center;
+    }
+
+    /* メッセージ */
+    .message-area {
+        padding: 20px;
+    }
+
+    .message-content {
+        max-width: 85%;
+    }
+
+    .message-text {
+        font-size: 16px;
+    }
+
+    /* 入力エリア */
+    .message-form {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .image-upload-btn {
+        margin-left: 0;
+        width: 30%;
+        text-align: center;
+    }
+
+    .send-btn {
+        margin-left: auto;
+    }
+}
