@@ -326,8 +326,7 @@ php artisan migrate --env=testing
 
 これで `demo_test` にテーブルが作成されます
 
-</details>
-```
+
 
 ---
 
@@ -388,6 +387,9 @@ DB_DATABASE=demo_test
 ```bash
 php artisan test
 ```
+
+
+</details>
 
 ---
 
