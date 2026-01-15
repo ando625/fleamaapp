@@ -1,4 +1,3 @@
-/* 全体のリセットとベース */
 * {
     margin: 0;
     padding: 0;
@@ -10,16 +9,13 @@ body {
     background-color: #f5f5f5;
 }
 
-/* メインコンテナ */
 .interact-container {
     display: flex;
-    /* height: 100vh; */
     max-width: 100%;
     background-color: #fff;
 }
 
 
-/* 左サイドバー */
 .sidebar {
     width: 235px;
     background-color: #868686;
@@ -60,14 +56,12 @@ body {
     font-weight: bold;
 }
 
-/* メインコンテンツエリア */
 .main-container {
     flex: 1;
     display: flex;
     flex-direction: column;
     background-color: #fff;
-    /* overflow: hidden; */
-    min-height: 100vh;  /* 画面全体の高さを確保 */
+    min-height: 100vh;
 }
 
 .flash-message {
@@ -79,11 +73,7 @@ body {
     width: fit-content;
 }
 
-/* .flash-message.success {
-    background-color: #e6f9f0;
-    color: #0a7a4a;
-    border: 1px solid #0a7a4a;
-} */
+
 .flash-message.success {
     background-color: #f0fdf7;
     color: #0a7a4a;
@@ -92,7 +82,6 @@ body {
     font-weight: 600;
 }
 
-/* ヘッダー */
 .interact-header {
     display: flex;
     justify-content: space-between;
@@ -144,7 +133,6 @@ body {
     margin: 0;
 }
 
-/* 商品情報エリア */
 .product-info {
     display: flex;
     gap: 30px;
@@ -185,31 +173,23 @@ body {
     color: #000000;
 }
 
-/* --- メッセージエリア全体の余白 --- */
 .message-area {
     display: flex;
     flex-direction: column;
     gap: 30px;
-    /* メッセージ同士の上下の間隔 */
     padding: 20px 40px;
-    /* 左右に40pxの余白を作って、端に寄りすぎないようにします */
-    /* ★ここが重要！余った縦のスペースをすべてこのエリアが使い切る魔法です */
     flex: 1;
     overflow-y: auto;
     background-color: #fff;
-    /* 背景を白に */
 }
 
-/* メッセージ1つ分の塊 */
 .message-group {
     display: flex;
     flex-direction: column;
     width: 100%;
     max-width: 100%;
-    /* 親の幅を超えないように */
 }
 
-/* --- ヘッダー（名前とアイコン） --- */
 .message-header {
     display: flex;
     align-items: center;
@@ -219,7 +199,6 @@ body {
 
 .message-avatar {
     width: 60px;
-    /* デザインに合わせて少し大きく */
     height: 60px;
     border-radius: 50%;
     object-fit: cover;
@@ -232,21 +211,15 @@ body {
     color: #000000;
 }
 
-/* --- メッセージ本体（吹き出し） --- */
 .message-content {
-    /* ここがポイント！最大幅を制限して、文字数に合わせる */
     max-width: 75%;
     width: fit-content;
-    /* 中身の長さに箱を合わせる魔法です */
 }
 
 .message-bubble {
     background-color: #D9D9D9;
-    /* 指定デザインの薄いグレー */
     padding: 15px 25px;
-    /* 吹き出しの中の余白をたっぷり取る */
     border-radius: 4px;
-    /* 角を丸く */
 }
 
 .message-text {
@@ -255,26 +228,20 @@ body {
     line-height: 1.6;
     color: #000000;
     word-wrap: break-word;
-    /* 長い英単語があっても改行するように */
 }
 
-/* --- 自分のメッセージ（右寄せ）の調整 --- */
 .own-message {
     align-items: flex-end;
-    /* 全体を右に寄せる */
 }
 
 .own-message .message-header {
     flex-direction: row-reverse;
-    /* 右から「アイコン、名前」の順に */
 }
 
 .own-message .message-bubble {
     background-color: #D9D9D9;
-    /* 自分も相手も同じグレーにする場合 */
 }
 
-/* 編集・削除ボタン */
 .message-actions {
     display: flex;
     justify-content: flex-end;
@@ -322,9 +289,7 @@ body {
 }
 
 
-/* 入力エリア */
 .input-area {
-    /* 入力フォームを画面下に固定 */
     flex-shrink: 0;
     padding: 0px 20px;
     background-color: #fff;
@@ -380,7 +345,6 @@ body {
 .image-input {
     position: absolute;
     inset: 0;
-    /* label 全体にかぶせる */
     opacity: 0;
     cursor: pointer;
 }
@@ -414,7 +378,6 @@ body {
     object-fit: contain;
 }
 
-/* モーダル */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -514,7 +477,6 @@ body {
     background-color: #ff6b6b;
 }
 
-/* スクロールバーのスタイリング */
 .message-area::-webkit-scrollbar,
 .sidebar::-webkit-scrollbar {
     width: 8px;
@@ -540,9 +502,7 @@ body {
     background: #999;
 }
 
-/* =========================
-   PC（1400px〜1540px）
-   ========================= */
+
 @media screen and (max-width: 1540px) {
 
     .sidebar {
@@ -570,17 +530,13 @@ body {
     }
 }
 
-/* =========================
-   タブレット（768px〜850px）
-   ========================= */
+
 @media screen and (max-width: 850px) {
 
-    /* 全体を縦方向に */
     .interact-container {
         flex-direction: column;
     }
 
-    /* サイドバーを上に */
     .sidebar {
         width: 100%;
         padding: 10px 0;
@@ -621,7 +577,6 @@ body {
         max-width: 300px;
     }
 
-    /* 商品情報 */
     .product-info {
         flex-direction: column;
         align-items: center;
@@ -644,7 +599,6 @@ body {
         text-align: center;
     }
 
-    /* メッセージ */
     .message-area {
         padding: 20px;
     }
@@ -657,7 +611,6 @@ body {
         font-size: 16px;
     }
 
-    /* 入力エリア */
     .message-form {
         flex-wrap: wrap;
         gap: 10px;

@@ -14,7 +14,6 @@ use Stripe\Stripe;
 
 class PurchaseController extends Controller
 {
-    // 購入画面表示
     public function buy(Item $item)
     {
         $user = Auth::user();
@@ -41,7 +40,6 @@ class PurchaseController extends Controller
         return view('purchase.buy', compact('item', 'addressData', 'profile'));
     }
 
-    // 住所変更画面表
     public function change(Item $item)
     {
         $user = Auth::user();
@@ -61,7 +59,6 @@ class PurchaseController extends Controller
     }
 
 
-    // 住所変更保存
     public function updateAddress(AddressRequest $request, Item $item)
     {
         $validated = $request->validated();
@@ -101,7 +98,7 @@ class PurchaseController extends Controller
             return redirect()->route('profile.transactions.show', $transaction->id)->with('success', 'コンビニ支払いで購入が完了しました！取引チャットに進めます');
         }
 
-        //カード支払いの場合はScriptセッション作成
+
         \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
 
         $successUrl = route('purchase.stripeSuccess', $item->id);
@@ -125,7 +122,7 @@ class PurchaseController extends Controller
         return redirect($session->url);
     }
 
-    //Script支払い成功後に呼ばれる
+
     public function stripeSuccess(Item $item, Request $request)
     {
         $user = Auth::user();

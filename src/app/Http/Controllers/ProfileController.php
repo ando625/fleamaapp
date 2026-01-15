@@ -21,9 +21,9 @@ class ProfileController extends Controller
 
 
         $purchases = Transaction::where('buyer_id', $user->id)
-            ->whereNotNull('completed_at')   // 取引完了
+            ->whereNotNull('completed_at')
             ->whereHas('item', function ($q) {
-                $q->where('status', 'sold'); // 商品が sold
+                $q->where('status', 'sold');
             })
             ->with('item')
             ->get()
@@ -80,7 +80,6 @@ class ProfileController extends Controller
         return view('profile.profile', compact('user', 'tab', 'purchases'));
     }
 
-    // プロフィール新規画面表示
     public function create()
     {
         $user = Auth::user();
@@ -88,7 +87,6 @@ class ProfileController extends Controller
         return view('profile.create', compact('user'));
     }
 
-    // プロフィール新規登録
     public function store(ProfileRequest $request)
     {
         $user = Auth::user();
@@ -113,7 +111,6 @@ class ProfileController extends Controller
         return redirect('/');
     }
 
-    // 登録後マイページでのプロフィール編集画面表示
     public function edit()
     {
         $user = Auth::user();
@@ -124,7 +121,6 @@ class ProfileController extends Controller
     }
 
 
-    // プロフィール更新既にあるものを
     public function update(ProfileRequest $request)
     {
         $user = Auth::user();
@@ -155,8 +151,5 @@ class ProfileController extends Controller
 
         return redirect()->route('mypage');
     }
-
-   
-
 
 }

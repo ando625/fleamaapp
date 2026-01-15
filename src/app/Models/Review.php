@@ -10,10 +10,10 @@ class Review extends Model
     use HasFactory;
 
     protected $fillable = [
-        'transaction_id', //どの取引か
-        'reviewer_id',    //評価した人
-        'reviewee_id',    //評価された人
-        'rating',         //★の数
+        'transaction_id',
+        'reviewer_id',
+        'reviewee_id',
+        'rating',
     ];
 
     public function transaction()

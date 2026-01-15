@@ -73,7 +73,7 @@
                             <div class="message-image">
                                 <img src="{{ asset('storage/' . $message->image_path) }}" alt="送信画像">
                             </div>
-@endif
+                            @endif
 
                             @if($isOwn)
                             <form action="{{ route('profile.messages.update', $message) }}" method="post" class="edit-form" id="edit-form-{{ $message->id }}" style="display: none;">

@@ -17,13 +17,11 @@ class CreateTransactionsTable extends Migration
             $table->id();
             $table->foreignId('item_id')->constrained()->cascadeOnDelete();
             $table->foreignId('buyer_id')->constrained('users');
-            //出品者User
             $table->foreignId('seller_id')->constrained('users');
-            //購入者User
             $table->string('status')->default('pending');
             $table->timestamp('completed_at')->nullable();
-            $table->boolean('buyer_reviewed')->default(false);     // 購入者が評価済みか
-            $table->boolean('seller_reviewed')->default(false);    // 出品者が評価済みか
+            $table->boolean('buyer_reviewed')->default(false);
+            $table->boolean('seller_reviewed')->default(false);
             $table->timestamps();
         });
     }

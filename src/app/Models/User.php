@@ -77,13 +77,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Comment::class);
     }
 
-    //自分が購入者の取引
     public function buyingTransactions()
     {
         return $this->hasMany(Transaction::class, 'buyer_id');
     }
 
-    //自分が出品者の取引
     public function sellingTransactions()
     {
         return $this->hasMany(Transaction::class, 'seller_id');
@@ -94,13 +92,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Message::class, 'sender_id');
     }
 
-    //自分がした評価
     public function reviewsGiven()
     {
         return $this->hasMany(Review::class, 'reviewer_id');
     }
 
-    //自分がされた評価
     public function reviewsReceived()
     {
         return $this->hasMany(Review::class, 'reviewee_id');
@@ -108,7 +104,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     protected $appends = ['average_rating'];
 
-    // アクセサ平均評価
     public function getAverageRatingAttribute()
     {
         $avg = $this->reviewsReceived()->avg('rating');

@@ -71,7 +71,6 @@
             </a>
         </div>
 
-
         <!-- 出品・購入タブ -->
         @else
             <div class="product-item">
