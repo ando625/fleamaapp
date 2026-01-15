@@ -25,7 +25,7 @@ class MessageRequest extends FormRequest
     {
         return [
             'body' => ['required', 'string', 'max:400'],
-            'image' => ['nullable', 'image', 'mimes:jpeg,png'],
+            'image' => ['nullable', 'mimes:jpeg,png'],
         ];
     }
 
