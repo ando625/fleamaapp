@@ -30,7 +30,13 @@
         <!-- ヘッダー -->
         <div class="interact-header">
             <div class="user-info">
-                <img src="{{ $partner->profile?->profile_image ? asset('storage/' . $partner->profile->profile_image) : asset('images/default-avatar.png') }}" class="user-avatar">
+                <!-- <img src="{{ $partner->profile?->profile_image ? asset('storage/' . $partner->profile->profile_image) : asset('images/default-avatar.png') }}" class="user-avatar"> -->
+                @if($partner->profile?->profile_image)
+                <img src="{{ asset('storage/' . $partner->profile->profile_image) }}" class="user-avatar">
+                @else
+                <div class="user-avatar"></div>
+                @endif
+
                 <h1>「{{$partner->name}}」さんとの取引画面</h1>
             </div>
             @if(auth()->id() === $transaction->buyer_id && ! $transaction->completed_at)
@@ -60,7 +66,14 @@
 
                 <div class="message-group {{ $isOwn ? 'own-message' : 'other-message' }}">
                     <div class="message-header">
-                        <img src="{{ $isOwn ? ($user->profile?->profile_image ? asset('storage/' . $user->profile->profile_image) : asset('images/default-avatar.png')) : ($partner->profile?->profile_image ? asset('storage/' . $partner->profile->profile_image) : asset('images/default-avatar.png')) }}" class="message-avatar">
+                        <!-- <img src="{{ $isOwn ? ($user->profile?->profile_image ? asset('storage/' . $user->profile->profile_image) : asset('images/default-avatar.png')) : ($partner->profile?->profile_image ? asset('storage/' . $partner->profile->profile_image) : asset('images/default-avatar.png')) }}" class="message-avatar"> -->
+                        @if($isOwn && $user->profile?->profile_image)
+                        <img src="{{ asset('storage/' . $user->profile->profile_image) }}" class="message-avatar">
+                        @elseif(!$isOwn && $partner->profile?->profile_image)
+                        <img src="{{ asset('storage/' . $partner->profile->profile_image) }}" class="message-avatar">
+                        @else
+                        <div class="message-avatar"></div>
+                        @endif
                         <div class="message-name">{{$isOwn ? $user->name : $partner->name}}</div>
                     </div>
 
