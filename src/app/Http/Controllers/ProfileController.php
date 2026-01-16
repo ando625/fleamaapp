@@ -47,8 +47,12 @@ class ProfileController extends Controller
                 ->count();
         });
 
-        $unreadCount = $transactions->sum('unread_count');
-        $transactionCount = $transactions->count();
+        $transactionCount = $transactions
+            ->filter(function ($transaction) {
+                return $transaction->unread_count > 0;
+            })
+            ->count();
+
 
         if ($tab === 'sell') {
             $itemsToShow = $listings;
@@ -59,7 +63,7 @@ class ProfileController extends Controller
         }
 
 
-        return view('profile.profile', compact('user', 'listings', 'purchases', 'transactions', 'unreadCount','transactionCount', 'tab', 'itemsToShow'));
+        return view('profile.profile', compact('user', 'listings', 'purchases', 'transactions','transactionCount', 'tab', 'itemsToShow'));
     }
 
     public function listings()
