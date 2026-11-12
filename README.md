@@ -1,6 +1,6 @@
 # Flema アプリケーション
 
-本リポジトリは **Docker + Laravel 8 + MySQL + Stripe + Fortify + MailHog** を用いた  
+本リポジトリは **Docker + Laravel 13 + MySQL + Stripe + Fortify + MailHog** を用いた  
 フリマアプリ「Flema」の開発環境および実装内容をまとめたものです。
 
 ---
@@ -390,10 +390,9 @@ php artisan test
 
 ## 5. Stripe のセットアップ
 
-PHPコマンドの中に入り実行:
-```bash
-composer require stripe/stripe-php
-```
+Stripe のライブラリ（`stripe/stripe-php`）は `composer.json` に含まれているため、  
+「3-2. Composer で依存関係をインストール」の `composer install` で自動的に入ります。  
+`composer require` を実行し直す必要はありません。
 
 .env に Stripe の公開キー・秘密キーを設定
 
@@ -501,7 +500,8 @@ docker compose up -d --build
 
 - MySQL データは `.gitignore` により Git には含めない
 - Mac M1/M2 ARM 環境では MySQL と phpMyAdmin に `platform: linux/amd64` が指定済み
-- PHP 8.1 以降、`mbstring.internal_encoding` は廃止されているため、警告が出たらコメントアウト
+- PHP 8.1 以降、`mbstring.internal_encoding` は非推奨のため、`docker/php/php.ini` ではコメントアウト済み（文字コードは `default_charset` の初期値 UTF-8 が使われます）
+- `docker/php/php.ini` を変更したときは、イメージに焼き込まれるため `docker compose up -d --build` で作り直してください
 
 ---
 
@@ -848,6 +848,16 @@ Gmail 等の **外部メールクライアントで確認する想定** のた�
 - テスト内で特定のユーザーID・商品IDを前提とした記述が存在する
 - テスト作成当時とデータ構造が異なっている
 
+### 現在失敗するテスト（2件）
+
+| テスト | 内容 |
+|---|---|
+| `PurchaseTest::test_商品購入機能` | 購入後の遷移先として `/`（商品一覧）を期待している |
+| `ChangeAddressAndPurchaseTest::test_配送先変更が購入画面に反映される_and_注文登録される` | 同上 |
+
+追加機能で購入後の遷移先を取引画面（`/profile/interact/{id}`）に変更したため、  
+テストの期待値と実際の遷移先が一致しません。残りの33件は成功します。
+
 ### 補足
 
 本課題では単体テストの実装は必須要件ではないため、  
@@ -866,17 +876,49 @@ Seeder に依存しないデータ生成（Factory 等）に修正すること�
 
 ## 13. 使用技術
 
-- PHP 8.1.34
-- Laravel 8.83.8
+- PHP 8.4
+- Laravel 13
 - MySQL 8.0.26
 - MailHog
 - Laravel Fortify
-- PHPUnit
+- PHPUnit 12
 - GitHub
 ---
 ## 14. 開発環境 URL
 
 - 開発環境: http://localhost/
 - phpMyAdmin: http://localhost:8080/
+
+---
+
+## 15. バージョンアップと脆弱性チェック
+
+### バージョンアップ（2026年11月）
+
+PHP 8.1 + Laravel 8 から、PHP 8.4 + Laravel 13 に更新しました。  
+Laravel は公式のアップグレードガイドに沿って 8 → 9 → 10 → 11 → 12 → 13 と1段ずつ上げています。
+
+| 対象 | 変更前 | 変更後 | セキュリティ修正の期限 |
+|---|---|---|---|
+| PHP | 8.1 | 8.4 | 2028-12-31 |
+| Laravel | 8 | 13 | 2028-03-17 |
+
+- 期限の出典: [PHP Supported Versions](https://www.php.net/supported-versions.php) / [Laravel Release Notes](https://laravel.com/docs/13.x/releases)
+- `composer audit` で検出された脆弱性は、更新前の59件から0件になりました
+
+### 脆弱性チェックの方法
+
+PHP コンテナの中で次のコマンドを実行すると、依存パッケージに既知の脆弱性がないか確認できます。
+
+```bash
+composer audit
+```
+
+### 自動チェック
+
+| 仕組み | 内容 |
+|---|---|
+| GitHub Actions（`.github/workflows/composer-audit.yml`） | `main` への push・PR・毎週月曜に `composer audit` を実行し、脆弱性があれば失敗にする |
+| Dependabot（`.github/dependabot.yml`） | composer と Dockerfile の更新を毎週チェックし、更新があれば PR を作る |
 
 ---
